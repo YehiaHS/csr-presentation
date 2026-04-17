@@ -429,7 +429,7 @@ function App() {
   return (
     <>
       <MorphingSVGBackground activeSlide={activeSlide} />
-      <div className="canvas-container"><Canvas camera={{ position: [0, 0, 10], fov: 75 }}><Suspense fallback={null}><BackgroundScene activeSlide={activeSlide} /></Suspense></Canvas></div>
+      <div className="canvas-container"><Canvas camera={{ position: [0, 0, 5], fov: 75 }}><Suspense fallback={null}><BackgroundScene activeSlide={activeSlide} /></Suspense></Canvas></div>
       <div className="progress-nav">{slides.map((s, i) => (<div key={s.id} className={`dot ${i === activeSlide ? 'active' : ''}`} onClick={() => scrollToSlide(i)} title={s.title} />))}</div>
       <div className="slides-container" ref={containerRef}>
         
