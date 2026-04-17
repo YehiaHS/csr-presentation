@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef, useMemo, Suspense } from 'react';
 import { Canvas, useFrame, useLoader } from '@react-three/fiber';
-import { Float, Stars, Environment, MeshDistortMaterial, Sphere, Box, Cylinder, Torus, RoundedBox } from '@react-three/drei';
+import { Float, Stars, Environment, MeshDistortMaterial, Sphere, Box, Cylinder, Torus, RoundedBox, Text } from '@react-three/drei';
 import * as THREE from 'three';
 import { motion, AnimatePresence } from 'framer-motion';
 import './index.css';
@@ -90,11 +90,11 @@ function MorphingSVGBackground({ activeSlide }: { activeSlide: number }) {
     0: { cx: 500, cy: 500, r: 0, strokeWidth: 0, opacity: 0, fill: "transparent", stroke: "#fbbf24" },
     1: { cx: 500, cy: 500, r: 0, strokeWidth: 0, opacity: 0, fill: "transparent", stroke: "#fbbf24" },
     2: { cx: 500, cy: 500, r: 0, strokeWidth: 0, opacity: 0, fill: "transparent", stroke: "#fbbf24" },
-    3: { cx: 500, cy: 500, r: 300, strokeWidth: 20, opacity: 0.4, fill: "transparent", stroke: "#fbbf24" },
-    4: { cx: 500, cy: 200, r: 100, strokeWidth: 0, opacity: 0.6, fill: "#fbbf24", stroke: "transparent" },
-    5: { cx: 500, cy: 500, r: 800, strokeWidth: 50, opacity: 0.2, fill: "transparent", stroke: "#fbbf24" },
-    6: { cx: 500, cy: 200, r: 100, strokeWidth: 0, opacity: 0.6, fill: "#fbbf24", stroke: "transparent" },
-    7: { cx: 500, cy: 500, r: 0, strokeWidth: 0, opacity: 0, fill: "transparent", stroke: "#fbbf24" },
+    3: { cx: 500, cy: 200, r: 100, strokeWidth: 0, opacity: 0.6, fill: "#fbbf24", stroke: "transparent" },
+    4: { cx: 500, cy: 500, r: 300, strokeWidth: 20, opacity: 0.4, fill: "transparent", stroke: "#fbbf24" },
+    5: { cx: 500, cy: 200, r: 100, strokeWidth: 0, opacity: 0.6, fill: "#fbbf24", stroke: "transparent" },
+    6: { cx: 800, cy: 800, r: 150, strokeWidth: 0, opacity: 0.4, fill: "#ec4899", stroke: "transparent" },
+    7: { cx: 500, cy: 500, r: 800, strokeWidth: 50, opacity: 0.2, fill: "transparent", stroke: "#fbbf24" },
   };
 
   return (
@@ -102,16 +102,7 @@ function MorphingSVGBackground({ activeSlide }: { activeSlide: number }) {
       className="morphing-bg" 
       viewBox="0 0 1000 1000" 
       preserveAspectRatio="none"
-      style={{
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        width: '100vw',
-        height: '100vh',
-        zIndex: 1, 
-        pointerEvents: 'none',
-        filter: 'blur(50px)' 
-      }}
+      style={{ position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh', zIndex: 1, pointerEvents: 'none', filter: 'blur(50px)' }}
     >
       <motion.path initial={false} animate={(baseVariants as any)[activeSlide] || baseVariants[0]} transition={{ duration: 1.5, ease: "easeInOut" }} />
       <motion.path initial={false} animate={(path2Variants as any)[activeSlide] || path2Variants[0]} transition={{ duration: 1.5, ease: "easeInOut" }} />
@@ -226,14 +217,46 @@ function TarotCards() {
       </Float>
       <Float speed={2.5} rotationIntensity={0.2} floatIntensity={0.8}>
         <group position={[0, 3.5, -1]} rotation={[Math.PI / 12, 0, 0]}>
-          <Box args={[2, 3.55, 0.08]}><meshStandardMaterial attach="material-4" map={socMap} /><meshStandardMaterial attach="material-0" color="#111827" /><meshStandardMaterial attach="material-1" color="#111827" /><meshStandardMaterial attach="material-2" color="#111827" /><meshStandardMaterial attach="material-3" color="#111827" /><meshStandardMaterial attach="material-4" map={socMap} /><meshStandardMaterial attach="material-5" color="#111827" /></Box>
+          <Box args={[2, 3.55, 0.08]}><meshStandardMaterial attach="material-4" map={socMap} /><meshStandardMaterial attach="material-0" color="#111827" /><meshStandardMaterial attach="material-1" color="#111827" /><meshStandardMaterial attach="material-2" color="#111827" /><meshStandardMaterial attach="material-3" color="#111827" /><meshStandardMaterial attach="material-5" color="#111827" /></Box>
         </group>
       </Float>
       <Float speed={1.5} rotationIntensity={0.4} floatIntensity={0.6}>
         <group position={[5, 0, 0]} rotation={[0, -Math.PI / 6, 0]}>
-          <Box args={[2, 3.55, 0.08]}><meshStandardMaterial attach="material-4" map={govMap} /><meshStandardMaterial attach="material-0" color="#111827" /><meshStandardMaterial attach="material-1" color="#111827" /><meshStandardMaterial attach="material-2" color="#111827" /><meshStandardMaterial attach="material-3" color="#111827" /><meshStandardMaterial attach="material-4" map={govMap} /><meshStandardMaterial attach="material-5" color="#111827" /></Box>
+          <Box args={[2, 3.55, 0.08]}><meshStandardMaterial attach="material-4" map={govMap} /><meshStandardMaterial attach="material-0" color="#111827" /><meshStandardMaterial attach="material-1" color="#111827" /><meshStandardMaterial attach="material-2" color="#111827" /><meshStandardMaterial attach="material-3" color="#111827" /><meshStandardMaterial attach="material-5" color="#111827" /></Box>
         </group>
       </Float>
+    </group>
+  );
+}
+
+function TBLGraphScene() {
+  return (
+    <group position={[0, -2, -2]}>
+      {/* People Bar */}
+      <Float speed={2} floatIntensity={0.5}>
+        <Box args={[1.5, 4, 1.5]} position={[-3, 2, 0]}>
+          <meshStandardMaterial color="#38bdf8" emissive="#38bdf8" emissiveIntensity={0.4} />
+        </Box>
+        <Text position={[-3, 4.5, 0]} fontSize={0.6} color="white" anchorX="center" anchorY="middle">PEOPLE</Text>
+      </Float>
+      {/* Planet Bar */}
+      <Float speed={1.5} floatIntensity={0.8}>
+        <Box args={[1.5, 6, 1.5]} position={[0, 3, 0]}>
+          <meshStandardMaterial color="#10b981" emissive="#10b981" emissiveIntensity={0.4} />
+        </Box>
+        <Text position={[0, 6.5, 0]} fontSize={0.6} color="white" anchorX="center" anchorY="middle">PLANET</Text>
+      </Float>
+      {/* Profit Bar */}
+      <Float speed={2.5} floatIntensity={0.4}>
+        <Box args={[1.5, 3, 1.5]} position={[3, 1.5, 0]}>
+          <meshStandardMaterial color="#fbbf24" emissive="#fbbf24" emissiveIntensity={0.4} />
+        </Box>
+        <Text position={[3, 3.5, 0]} fontSize={0.6} color="white" anchorX="center" anchorY="middle">PROFIT</Text>
+      </Float>
+      {/* Base Plane */}
+      <Box args={[10, 0.2, 5]} position={[0, 0, 0]}>
+        <meshStandardMaterial color="#1e293b" />
+      </Box>
     </group>
   );
 }
@@ -329,7 +352,7 @@ function BackgroundScene({ activeSlide }: { activeSlide: number }) {
         <group position={[0, -sceneSpacing * 1, 0]}><IndustryScene /></group>
         <group position={[0, -sceneSpacing * 2, 0]}><CompanyScene /></group>
         <group position={[0, -sceneSpacing * 3, 0]}><TarotCards /></group>
-        <group position={[0, -sceneSpacing * 4, 0]}><TarotCards /></group>
+        <group position={[0, -sceneSpacing * 4, 0]}><TBLGraphScene /></group>
         <group position={[0, -sceneSpacing * 5, 0]}><BillboardPhoneScene /></group>
         <group position={[0, -sceneSpacing * 6, 0]}><ImplementationGalleryScene /></group>
         <group position={[0, -sceneSpacing * 7, 0]}><EarthScene /></group>
@@ -406,7 +429,7 @@ function App() {
   return (
     <>
       <MorphingSVGBackground activeSlide={activeSlide} />
-      <div className="canvas-container"><Canvas camera={{ position: [0, 0, 5], fov: 75 }}><Suspense fallback={null}><BackgroundScene activeSlide={activeSlide} /></Suspense></Canvas></div>
+      <div className="canvas-container"><Canvas camera={{ position: [0, 0, 10], fov: 75 }}><Suspense fallback={null}><BackgroundScene activeSlide={activeSlide} /></Suspense></Canvas></div>
       <div className="progress-nav">{slides.map((s, i) => (<div key={s.id} className={`dot ${i === activeSlide ? 'active' : ''}`} onClick={() => scrollToSlide(i)} title={s.title} />))}</div>
       <div className="slides-container" ref={containerRef}>
         
