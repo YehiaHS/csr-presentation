@@ -133,6 +133,7 @@ function Planet({ distance, size, color, speed, offset }: { distance: number, si
       mesh.current.rotation.y += 0.01;
     }
   });
+
   return (
     <group>
       <mesh rotation={[Math.PI / 2, 0, 0]}>
@@ -264,14 +265,11 @@ function ImplementationGalleryScene() {
   return (
     <group position={[0, -2, -5]}>
       <Float speed={1.5} floatIntensity={1} rotationIntensity={0.5}>
-        <Box args={[12, 8, 0.5]} position={[0, 4, 0]}>
-          <meshStandardMaterial color="#0f172a" metalness={0.8} roughness={0.2} />
-        </Box>
+        <Box args={[12, 8, 0.5]} position={[0, 4, 0]}><meshStandardMaterial color="#0f172a" metalness={0.8} roughness={0.2} /></Box>
         <mesh position={[0, 4, 0.26]}>
           <planeGeometry args={[11.5, 7.5]} />
           <meshStandardMaterial color="#38bdf8" emissive="#0ea5e9" emissiveIntensity={0.5} />
         </mesh>
-        {/* Decorative elements to make it look like a high-tech gallery */}
         <Torus args={[5, 0.05, 16, 100]} position={[0, 4, -1]} rotation={[Math.PI / 2, 0, 0]}>
           <meshStandardMaterial color="#fbbf24" emissive="#fbbf24" emissiveIntensity={0.5} />
         </Torus>
@@ -283,43 +281,39 @@ function ImplementationGalleryScene() {
 function EarthScene() {
   const earthRef = useRef<THREE.Mesh>(null);
   const cloudRef = useRef<THREE.Mesh>(null);
+  const sunRef = useRef<THREE.DirectionalLight>(null);
+  const earthTexture = useLoader(THREE.TextureLoader, `${BASE_PATH}/earth_texture.jpg`);
   
   useFrame(({ clock }) => {
-    if (earthRef.current) earthRef.current.rotation.y = clock.getElapsedTime() * 0.05;
-    if (cloudRef.current) cloudRef.current.rotation.y = clock.getElapsedTime() * 0.07;
+    const t = clock.getElapsedTime();
+    if (earthRef.current) earthRef.current.rotation.y = t * 0.05;
+    if (cloudRef.current) cloudRef.current.rotation.y = t * 0.07;
+    
+    // Day/Night Cycle: Move the sun light around the Earth
+    if (sunRef.current) {
+      sunRef.current.position.x = Math.sin(t * 0.2) * 20;
+      sunRef.current.position.z = Math.cos(t * 0.2) * 20;
+    }
   });
 
   return (
     <group position={[0, 0, -2]}>
+      <directionalLight ref={sunRef} intensity={2} color="#ffffff" />
       <Float speed={1} floatIntensity={0.5} rotationIntensity={0.1}>
-        {/* Detailed Earth using procedural textures/colors since we don't have assets */}
         <Sphere ref={earthRef} args={[4, 64, 64]}>
           <meshPhongMaterial 
-            color="#224488" 
-            emissive="#001133"
-            specular="#666666"
-            shininess={5}
+            map={earthTexture}
+            emissive="#112244"
+            emissiveIntensity={0.1}
+            specular="#333333"
+            shininess={10}
           />
         </Sphere>
-        {/* Clouds layer */}
-        <Sphere ref={cloudRef} args={[4.1, 64, 64]}>
-          <meshPhongMaterial 
-            color="#ffffff" 
-            transparent 
-            opacity={0.3}
-            depthWrite={false}
-          />
+        <Sphere ref={cloudRef} args={[4.05, 64, 64]}>
+          <meshPhongMaterial color="#ffffff" transparent opacity={0.2} depthWrite={false} />
         </Sphere>
-        {/* Atmosphere glow */}
-        <Sphere args={[4.5, 64, 64]}>
-          <meshStandardMaterial 
-            color="#4488ff" 
-            transparent 
-            opacity={0.1} 
-            side={THREE.BackSide}
-            emissive="#4488ff"
-            emissiveIntensity={2}
-          />
+        <Sphere args={[4.4, 64, 64]}>
+          <meshStandardMaterial color="#4488ff" transparent opacity={0.15} side={THREE.BackSide} emissive="#4488ff" emissiveIntensity={1.5} />
         </Sphere>
       </Float>
     </group>
@@ -338,7 +332,7 @@ function BackgroundScene({ activeSlide }: { activeSlide: number }) {
   return (
     <>
       <Stars radius={100} depth={50} count={5000} factor={4} saturation={0} fade speed={1} />
-      <ambientLight intensity={0.6} /><directionalLight position={[10, 10, 5]} intensity={3} color="#ffffff" /><directionalLight position={[-10, -10, -5]} intensity={1} color="#38bdf8" />
+      <ambientLight intensity={0.4} />
       <group ref={group} position={[0, 0, 0]}>
         <group position={[0, 0, 0]}><SolarSystem /></group>
         <group position={[0, -sceneSpacing * 1, 0]}><IndustryScene /></group>
@@ -425,7 +419,6 @@ function App() {
       <div className="progress-nav">{slides.map((s, i) => (<div key={s.id} className={`dot ${i === activeSlide ? 'active' : ''}`} onClick={() => scrollToSlide(i)} title={s.title} />))}</div>
       <div className="slides-container" ref={containerRef}>
         
-        {/* Slide 0: Intro */}
         <section className="slide">
           <div className="content-box" onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave}>
             <span className="badge" style={{ color: 'var(--accent-sun)' }}>Intersolar Egypt</span>
@@ -434,7 +427,6 @@ function App() {
           </div>
         </section>
 
-        {/* Slide 1: Industry ESG in Egypt */}
         <section className="slide">
           <div className="content-box" onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave}>
             <span className="badge" style={{ color: 'var(--accent-wind)' }}>Industry Analysis</span>
@@ -448,7 +440,6 @@ function App() {
           </div>
         </section>
 
-        {/* Slide 2: Company Brief */}
         <section className="slide">
           <div className="content-box" onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave}>
             <span className="badge" style={{ color: 'var(--accent-wind)' }}>The Company</span>
@@ -464,7 +455,6 @@ function App() {
           </div>
         </section>
 
-        {/* Slide 3: Interview Analysis (ESG & SDG) */}
         <section className="slide">
           <div className="content-box" onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave}>
             <span className="badge" style={{ color: 'var(--accent-earth)' }}>Interview Analysis</span>
@@ -477,7 +467,6 @@ function App() {
           </div>
         </section>
 
-        {/* Slide 4: TBL (Triple Bottom Line) */}
         <section className="slide">
           <div className="content-box" onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave}>
             <span className="badge" style={{ color: 'var(--accent-sun)' }}>Framework</span>
@@ -490,7 +479,6 @@ function App() {
           </div>
         </section>
 
-        {/* Slide 5: Campaign Execution (Strategy) */}
         <section className="slide">
           <div className="content-box" onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave}>
             <span className="badge" style={{ color: '#38bdf8' }}>Campaign Plan</span>
@@ -503,7 +491,6 @@ function App() {
           </div>
         </section>
 
-        {/* Slide 6: Execution itself (Photos/Videos) */}
         <section className="slide">
           <div className="content-box">
             <span className="badge" style={{ color: 'var(--accent-sun)' }}>Showcase</span>
@@ -513,7 +500,6 @@ function App() {
           </div>
         </section>
 
-        {/* Slide 7: Earth Conclusion */}
         <section className="slide">
           <div className="content-box" style={{ textAlign: 'center' }} onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave}>
             <h2 style={{ fontSize: '4rem', color: 'var(--accent-earth)' }}>READY.</h2>
