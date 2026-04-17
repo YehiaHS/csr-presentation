@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef, useMemo, Suspense } from 'react';
 import { Canvas, useFrame, useLoader } from '@react-three/fiber';
-import { Float, Stars, Environment, MeshDistortMaterial, Sphere, Box, Cylinder, Cone, RoundedBox } from '@react-three/drei';
+import { Float, Stars, Environment, MeshDistortMaterial, Sphere, Box, Cylinder, Torus, RoundedBox } from '@react-three/drei';
 import * as THREE from 'three';
 import { motion, AnimatePresence } from 'framer-motion';
 import './index.css';
@@ -61,17 +61,17 @@ function MorphingSVGBackground({ activeSlide }: { activeSlide: number }) {
     4: { d: "M 0 1000 C 300 600, 700 600, 1000 1000 L 1000 1000 L 0 1000 Z", fill: "#fcd34d", opacity: 0.4 },
     5: { d: "M 0 200 C 300 500, 700 0, 1000 200 L 1000 1000 L 0 1000 Z", fill: "#059669", opacity: 0.5 },
     6: { d: "M 0 1000 C 300 600, 700 600, 1000 1000 L 1000 1000 L 0 1000 Z", fill: "#38bdf8", opacity: 0.4 },
-    7: { d: "M 0 1000 C 300 800, 700 800, 1000 1000 L 1000 1000 L 0 1000 Z", fill: "#fbbf24", opacity: 0.3 },
+    7: { d: "M 0 0 C 400 0, 600 1000, 1000 1000 L 1000 1000 L 0 1000 Z", fill: "#10b981", opacity: 0.2 },
   };
 
   const path2Variants = {
     0: { d: "M 0 1000 C 200 900, 800 900, 1000 1000 L 1000 1000 L 0 1000 Z", fill: "#e0f2fe", opacity: 0 },
     1: { d: "M 0 600 C 400 400, 600 900, 1000 500 L 1000 1000 L 0 1000 Z", fill: "#e0f2fe", opacity: 0.2 },
     2: { d: "M 0 800 C 200 500, 800 400, 1000 700 L 1000 1000 L 0 1000 Z", fill: "#cbd5e1", opacity: 0.3 },
-    3: { d: "M 0 1000 C 400 1000, 600 0, 1000 0 L 1000 1000 L 0 1000 Z", fill: "#f43f5e", opacity: 0.2 },
-    4: { d: "M 300 1000 C 400 700, 600 700, 700 1000 L 700 1000 L 300 1000 Z", fill: "#d97706", opacity: 0.4 },
-    5: { d: "M 0 1000 C 200 900, 800 900, 1000 1000 L 1000 1000 L 0 1000 Z", fill: "#e0f2fe", opacity: 0 },
-    6: { d: "M 300 1000 C 400 700, 600 700, 700 1000 L 700 1000 L 300 1000 Z", fill: "#d97706", opacity: 0.4 },
+    3: { d: "M 300 1000 C 400 700, 600 700, 700 1000 L 700 1000 L 300 1000 Z", fill: "#d97706", opacity: 0.4 },
+    4: { d: "M 0 1000 C 400 1000, 600 0, 1000 0 L 1000 1000 L 0 1000 Z", fill: "#f43f5e", opacity: 0.2 },
+    5: { d: "M 300 1000 C 400 700, 600 700, 700 1000 L 700 1000 L 300 1000 Z", fill: "#d97706", opacity: 0.4 },
+    6: { d: "M 0 600 C 250 300, 750 900, 1000 600 L 1000 1000 L 0 1000 Z", fill: "#38bdf8", opacity: 0.3 },
     7: { d: "M 0 1000 C 200 900, 800 900, 1000 1000 L 1000 1000 L 0 1000 Z", fill: "#e0f2fe", opacity: 0 },
   };
 
@@ -90,11 +90,11 @@ function MorphingSVGBackground({ activeSlide }: { activeSlide: number }) {
     0: { cx: 500, cy: 500, r: 0, strokeWidth: 0, opacity: 0, fill: "transparent", stroke: "#fbbf24" },
     1: { cx: 500, cy: 500, r: 0, strokeWidth: 0, opacity: 0, fill: "transparent", stroke: "#fbbf24" },
     2: { cx: 500, cy: 500, r: 0, strokeWidth: 0, opacity: 0, fill: "transparent", stroke: "#fbbf24" },
-    3: { cx: 500, cy: 500, r: 300, strokeWidth: 20, opacity: 0.4, fill: "transparent", stroke: "#fbbf24" },
-    4: { cx: 500, cy: 200, r: 100, strokeWidth: 0, opacity: 0.6, fill: "#fbbf24", stroke: "transparent" },
-    5: { cx: 500, cy: 500, r: 800, strokeWidth: 50, opacity: 0.2, fill: "transparent", stroke: "#fbbf24" },
-    6: { cx: 500, cy: 200, r: 100, strokeWidth: 0, opacity: 0.6, fill: "#fbbf24", stroke: "transparent" },
-    7: { cx: 500, cy: 500, r: 0, strokeWidth: 0, opacity: 0, fill: "transparent", stroke: "#fbbf24" },
+    3: { cx: 500, cy: 200, r: 100, strokeWidth: 0, opacity: 0.6, fill: "#fbbf24", stroke: "transparent" },
+    4: { cx: 500, cy: 500, r: 300, strokeWidth: 20, opacity: 0.4, fill: "transparent", stroke: "#fbbf24" },
+    5: { cx: 500, cy: 200, r: 100, strokeWidth: 0, opacity: 0.6, fill: "#fbbf24", stroke: "transparent" },
+    6: { cx: 800, cy: 800, r: 150, strokeWidth: 0, opacity: 0.4, fill: "#ec4899", stroke: "transparent" },
+    7: { cx: 500, cy: 500, r: 800, strokeWidth: 50, opacity: 0.2, fill: "transparent", stroke: "#fbbf24" },
   };
 
   return (
@@ -260,6 +260,72 @@ function BillboardPhoneScene() {
   );
 }
 
+function ImplementationGalleryScene() {
+  return (
+    <group position={[0, -2, -5]}>
+      <Float speed={1.5} floatIntensity={1} rotationIntensity={0.5}>
+        <Box args={[12, 8, 0.5]} position={[0, 4, 0]}>
+          <meshStandardMaterial color="#0f172a" metalness={0.8} roughness={0.2} />
+        </Box>
+        <mesh position={[0, 4, 0.26]}>
+          <planeGeometry args={[11.5, 7.5]} />
+          <meshStandardMaterial color="#38bdf8" emissive="#0ea5e9" emissiveIntensity={0.5} />
+        </mesh>
+        {/* Decorative elements to make it look like a high-tech gallery */}
+        <Torus args={[5, 0.05, 16, 100]} position={[0, 4, -1]} rotation={[Math.PI / 2, 0, 0]}>
+          <meshStandardMaterial color="#fbbf24" emissive="#fbbf24" emissiveIntensity={0.5} />
+        </Torus>
+      </Float>
+    </group>
+  );
+}
+
+function EarthScene() {
+  const earthRef = useRef<THREE.Mesh>(null);
+  const cloudRef = useRef<THREE.Mesh>(null);
+  
+  useFrame(({ clock }) => {
+    if (earthRef.current) earthRef.current.rotation.y = clock.getElapsedTime() * 0.05;
+    if (cloudRef.current) cloudRef.current.rotation.y = clock.getElapsedTime() * 0.07;
+  });
+
+  return (
+    <group position={[0, 0, -2]}>
+      <Float speed={1} floatIntensity={0.5} rotationIntensity={0.1}>
+        {/* Detailed Earth using procedural textures/colors since we don't have assets */}
+        <Sphere ref={earthRef} args={[4, 64, 64]}>
+          <meshPhongMaterial 
+            color="#224488" 
+            emissive="#001133"
+            specular="#666666"
+            shininess={5}
+          />
+        </Sphere>
+        {/* Clouds layer */}
+        <Sphere ref={cloudRef} args={[4.1, 64, 64]}>
+          <meshPhongMaterial 
+            color="#ffffff" 
+            transparent 
+            opacity={0.3}
+            depthWrite={false}
+          />
+        </Sphere>
+        {/* Atmosphere glow */}
+        <Sphere args={[4.5, 64, 64]}>
+          <meshStandardMaterial 
+            color="#4488ff" 
+            transparent 
+            opacity={0.1} 
+            side={THREE.BackSide}
+            emissive="#4488ff"
+            emissiveIntensity={2}
+          />
+        </Sphere>
+      </Float>
+    </group>
+  );
+}
+
 function BackgroundScene({ activeSlide }: { activeSlide: number }) {
   const group = useRef<THREE.Group>(null);
   const sceneSpacing = 20; 
@@ -280,8 +346,8 @@ function BackgroundScene({ activeSlide }: { activeSlide: number }) {
         <group position={[0, -sceneSpacing * 3, 0]}><TarotCards /></group>
         <group position={[0, -sceneSpacing * 4, 0]}><TarotCards /></group>
         <group position={[0, -sceneSpacing * 5, 0]}><BillboardPhoneScene /></group>
-        <group position={[0, -sceneSpacing * 6, 0]}><BillboardPhoneScene /></group>
-        <group position={[0, -sceneSpacing * 7, 0]}><SolarSystem /></group>
+        <group position={[0, -sceneSpacing * 6, 0]}><ImplementationGalleryScene /></group>
+        <group position={[0, -sceneSpacing * 7, 0]}><EarthScene /></group>
       </group>
       <Environment preset="night" />
     </>
@@ -447,7 +513,7 @@ function App() {
           </div>
         </section>
 
-        {/* Slide 7: Ready */}
+        {/* Slide 7: Earth Conclusion */}
         <section className="slide">
           <div className="content-box" style={{ textAlign: 'center' }} onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave}>
             <h2 style={{ fontSize: '4rem', color: 'var(--accent-earth)' }}>READY.</h2>
