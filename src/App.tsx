@@ -436,9 +436,12 @@ function App() {
         {/* Slide 0: Intro */}
         <section className="slide">
           <div className="content-box" onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave}>
-            <span className="badge" style={{ color: 'var(--accent-sun)' }}>Intersolar Egypt</span>
+            <span className="badge" style={{ color: 'var(--accent-sun)' }}>Corporate Social Responsibility</span>
             <h1>POWER<br/>YOUR FUTURE</h1>
             <p className="lead-text">Helping Egypt switch to renewable energy with better planning and clear results.</p>
+            <div style={{ marginTop: '2rem', fontSize: '0.9rem', color: 'var(--text-secondary)', fontWeight: '600', letterSpacing: '1px' }}>
+              JANAH • FARAH • YEHIA
+            </div>
           </div>
         </section>
 
