@@ -530,11 +530,11 @@ function BackgroundScene({ activeSlide }: { activeSlide: number }) {
 
 function ImageCarousel() {
   const carouselData = useMemo(() => [
-    { url: '/doc-images/image1.jpg', caption: 'Direct engagement at Mall Activations' },
-    { url: '/doc-images/image2.png', caption: 'Strategic Project Milestones' },
-    { url: '/doc-images/image3.jpg', caption: 'Educational Social Outreach' },
-    { url: '/doc-images/image4.jpg', caption: 'Performance Analysis Visuals' },
-    { url: '/doc-images/image5.png', caption: 'Regional Sustainability Impact' }
+    { url: '/csr-presentation/doc-images/image1.jpg', caption: 'Direct engagement at Mall Activations' },
+    { url: '/csr-presentation/doc-images/image2.png', caption: 'Strategic Project Milestones' },
+    { url: '/csr-presentation/doc-images/image3.jpg', caption: 'Educational Social Outreach' },
+    { url: '/csr-presentation/doc-images/image4.jpg', caption: 'Performance Analysis Visuals' },
+    { url: '/csr-presentation/doc-images/image5.png', caption: 'Regional Sustainability Impact' }
   ], []);
 
   const [current, setCurrent] = useState(0);
