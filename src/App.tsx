@@ -1,9 +1,11 @@
-import React, { useState, useEffect, useRef, useMemo } from 'react';
+import React, { useState, useEffect, useRef, useMemo, Suspense } from 'react';
 import { Canvas, useFrame, useLoader } from '@react-three/fiber';
 import { Float, Stars, Environment, MeshDistortMaterial, Sphere, Box, Cylinder, Cone, RoundedBox } from '@react-three/drei';
 import * as THREE from 'three';
 import { motion, AnimatePresence } from 'framer-motion';
 import './index.css';
+
+const BASE_PATH = '/csr-presentation';
 
 const slides = [
   {
@@ -76,44 +78,44 @@ function MorphingSVGBackground({ activeSlide }: { activeSlide: number }) {
     0: { d: "M 0 1000 C 300 800, 700 800, 1000 1000 L 1000 1000 L 0 1000 Z", fill: "#fbbf24", opacity: 0.3 },
     1: { d: "M 0 400 C 200 800, 800 200, 1000 600 L 1000 1000 L 0 1000 Z", fill: "#38bdf8", opacity: 0.4 },
     2: { d: "M 0 500 C 300 300, 700 600, 1000 400 L 1000 1000 L 0 1000 Z", fill: "#1e293b", opacity: 0.6 },
-    3: { d: "M 0 0 C 400 0, 600 1000, 1000 1000 L 1000 1000 L 0 1000 Z", fill: "#10b981", opacity: 0.3 },
-    4: { d: "M 0 1000 C 300 600, 700 600, 1000 1000 L 1000 1000 L 0 1000 Z", fill: "#fcd34d", opacity: 0.4 },
-    5: { d: "M 0 500 C 250 200, 750 800, 1000 500 L 1000 1000 L 0 1000 Z", fill: "#0ea5e9", opacity: 0.3 },
-    6: { d: "M 0 200 C 300 500, 700 0, 1000 200 L 1000 1000 L 0 1000 Z", fill: "#059669", opacity: 0.5 },
-    7: { d: "M 0 1000 C 300 800, 700 800, 1000 1000 L 1000 1000 L 0 1000 Z", fill: "#fbbf24", opacity: 0.3 },
+    3: { d: "M 0 1000 C 300 600, 700 600, 1000 1000 L 1000 1000 L 0 1000 Z", fill: "#38bdf8", opacity: 0.4 },
+    4: { d: "M 0 0 C 400 0, 600 1000, 1000 1000 L 1000 1000 L 0 1000 Z", fill: "#10b981", opacity: 0.3 },
+    5: { d: "M 0 1000 C 300 600, 700 600, 1000 1000 L 1000 1000 L 0 1000 Z", fill: "#fcd34d", opacity: 0.4 },
+    6: { d: "M 0 500 C 250 200, 750 800, 1000 500 L 1000 1000 L 0 1000 Z", fill: "#0ea5e9", opacity: 0.3 },
+    7: { d: "M 0 200 C 300 500, 700 0, 1000 200 L 1000 1000 L 0 1000 Z", fill: "#059669", opacity: 0.5 },
   };
 
   const path2Variants = {
     0: { d: "M 0 1000 C 200 900, 800 900, 1000 1000 L 1000 1000 L 0 1000 Z", fill: "#e0f2fe", opacity: 0 },
     1: { d: "M 0 600 C 400 400, 600 900, 1000 500 L 1000 1000 L 0 1000 Z", fill: "#e0f2fe", opacity: 0.2 },
     2: { d: "M 0 800 C 200 500, 800 400, 1000 700 L 1000 1000 L 0 1000 Z", fill: "#cbd5e1", opacity: 0.3 },
-    3: { d: "M 0 1000 C 400 1000, 600 0, 1000 0 L 1000 1000 L 0 1000 Z", fill: "#f43f5e", opacity: 0.2 },
-    4: { d: "M 300 1000 C 400 700, 600 700, 700 1000 L 700 1000 L 300 1000 Z", fill: "#d97706", opacity: 0.4 },
-    5: { d: "M 0 600 C 250 300, 750 900, 1000 600 L 1000 1000 L 0 1000 Z", fill: "#38bdf8", opacity: 0.3 },
-    6: { d: "M 0 400 C 300 700, 700 200, 1000 400 L 1000 1000 L 0 1000 Z", fill: "#34d399", opacity: 0.4 },
-    7: { d: "M 0 1000 C 200 900, 800 900, 1000 1000 L 1000 1000 L 0 1000 Z", fill: "#e0f2fe", opacity: 0 },
+    3: { d: "M 300 1000 C 400 700, 600 700, 700 1000 L 700 1000 L 300 1000 Z", fill: "#d97706", opacity: 0.4 },
+    4: { d: "M 0 1000 C 400 1000, 600 0, 1000 0 L 1000 1000 L 0 1000 Z", fill: "#f43f5e", opacity: 0.2 },
+    5: { d: "M 300 1000 C 400 700, 600 700, 700 1000 L 700 1000 L 300 1000 Z", fill: "#d97706", opacity: 0.4 },
+    6: { d: "M 0 600 C 250 300, 750 900, 1000 600 L 1000 1000 L 0 1000 Z", fill: "#38bdf8", opacity: 0.3 },
+    7: { d: "M 0 400 C 300 700, 700 200, 1000 400 L 1000 1000 L 0 1000 Z", fill: "#34d399", opacity: 0.4 },
   };
 
   const path3Variants = {
     0: { d: "M 500 1000 C 500 1000, 500 1000, 500 1000 L 500 1000 L 500 1000 Z", fill: "#334155", opacity: 0 },
     1: { d: "M 500 1000 C 500 1000, 500 1000, 500 1000 L 500 1000 L 500 1000 Z", fill: "#334155", opacity: 0 },
     2: { d: "M 400 1000 C 400 300, 600 300, 600 1000 L 600 1000 L 400 1000 Z", fill: "#334155", opacity: 0.4 },
-    3: { d: "M 500 0 C 500 0, 500 1000, 500 1000 L 1000 1000 L 1000 0 Z", fill: "#020617", opacity: 0.8 },
-    4: { d: "M 450 1000 C 500 400, 500 400, 550 1000 L 550 1000 L 450 1000 Z", fill: "#ffffff", opacity: 0.2 },
-    5: { d: "M 0 700 C 250 400, 750 1000, 1000 700 L 1000 1000 L 0 1000 Z", fill: "#bae6fd", opacity: 0.2 },
-    6: { d: "M 0 600 C 300 900, 700 400, 1000 600 L 1000 1000 L 0 1000 Z", fill: "#10b981", opacity: 0.4 },
-    7: { d: "M 500 1000 C 500 1000, 500 1000, 500 1000 L 500 1000 L 500 1000 Z", fill: "#334155", opacity: 0 },
+    3: { d: "M 450 1000 C 500 400, 500 400, 550 1000 L 550 1000 L 450 1000 Z", fill: "#ffffff", opacity: 0.2 },
+    4: { d: "M 500 0 C 500 0, 500 1000, 500 1000 L 1000 1000 L 1000 0 Z", fill: "#020617", opacity: 0.8 },
+    5: { d: "M 450 1000 C 500 400, 500 400, 550 1000 L 550 1000 L 450 1000 Z", fill: "#ffffff", opacity: 0.2 },
+    6: { d: "M 0 700 C 250 400, 750 1000, 1000 700 L 1000 1000 L 0 1000 Z", fill: "#bae6fd", opacity: 0.2 },
+    7: { d: "M 0 600 C 300 900, 700 400, 1000 600 L 1000 1000 L 0 1000 Z", fill: "#10b981", opacity: 0.4 },
   };
 
   const circleVariants = {
     0: { cx: 500, cy: 500, r: 0, strokeWidth: 0, opacity: 0, fill: "transparent", stroke: "#fbbf24" },
     1: { cx: 500, cy: 500, r: 0, strokeWidth: 0, opacity: 0, fill: "transparent", stroke: "#fbbf24" },
     2: { cx: 500, cy: 500, r: 0, strokeWidth: 0, opacity: 0, fill: "transparent", stroke: "#fbbf24" },
-    3: { cx: 500, cy: 500, r: 300, strokeWidth: 20, opacity: 0.4, fill: "transparent", stroke: "#fbbf24" },
-    4: { cx: 500, cy: 200, r: 100, strokeWidth: 0, opacity: 0.6, fill: "#fbbf24", stroke: "transparent" },
-    5: { cx: 800, cy: 800, r: 150, strokeWidth: 0, opacity: 0.4, fill: "#ec4899", stroke: "transparent" },
-    6: { cx: 500, cy: 500, r: 800, strokeWidth: 50, opacity: 0.2, fill: "transparent", stroke: "#fbbf24" },
-    7: { cx: 500, cy: 500, r: 0, strokeWidth: 0, opacity: 0, fill: "transparent", stroke: "#fbbf24" },
+    3: { cx: 500, cy: 200, r: 100, strokeWidth: 0, opacity: 0.6, fill: "#fbbf24", stroke: "transparent" },
+    4: { cx: 500, cy: 500, r: 300, strokeWidth: 20, opacity: 0.4, fill: "transparent", stroke: "#fbbf24" },
+    5: { cx: 500, cy: 200, r: 100, strokeWidth: 0, opacity: 0.6, fill: "#fbbf24", stroke: "transparent" },
+    6: { cx: 800, cy: 800, r: 150, strokeWidth: 0, opacity: 0.4, fill: "#ec4899", stroke: "transparent" },
+    7: { cx: 500, cy: 500, r: 800, strokeWidth: 50, opacity: 0.2, fill: "transparent", stroke: "#fbbf24" },
   };
 
   return (
@@ -171,7 +173,6 @@ function Planet({ distance, size, color, speed, offset }: { distance: number, si
 
   return (
     <group>
-      {/* Orbit path */}
       <mesh rotation={[Math.PI / 2, 0, 0]}>
         <ringGeometry args={[distance - 0.02, distance + 0.02, 64]} />
         <meshBasicMaterial color="#ffffff" transparent opacity={0.1} side={THREE.DoubleSide} />
@@ -186,7 +187,6 @@ function Planet({ distance, size, color, speed, offset }: { distance: number, si
 function SolarSystem() {
   return (
     <group position={[4, 1, -2]}>
-      {/* Sun */}
       <Float speed={2} rotationIntensity={1} floatIntensity={2}>
         <Sphere args={[2.5, 64, 64]}>
           <MeshDistortMaterial 
@@ -203,7 +203,6 @@ function SolarSystem() {
         </Sphere>
       </Float>
 
-      {/* Planets */}
       <Planet distance={5} size={0.3} color="#94a3b8" speed={0.8} offset={0} />
       <Planet distance={8} size={0.5} color="#fb923c" speed={0.5} offset={Math.PI / 2} />
       <Planet distance={11} size={0.6} color="#38bdf8" speed={0.3} offset={Math.PI} />
@@ -310,7 +309,6 @@ function BillboardPhoneScene() {
 
   return (
     <group position={[0, 0, -2]}>
-      {/* Billboard */}
       <Float speed={1.5} rotationIntensity={0.1} floatIntensity={0.2}>
         <group position={[-6, 1, 0]} rotation={[0, Math.PI / 8, 0]}>
           <Box args={[0.2, 5, 0.2]} position={[0, -2.5, 0]}>
@@ -325,7 +323,6 @@ function BillboardPhoneScene() {
         </group>
       </Float>
 
-      {/* Phone */}
       <group ref={phoneRef} position={[6, -1, 0]} rotation={[0, -Math.PI / 8, 0]}>
         <Float speed={2} rotationIntensity={0.5} floatIntensity={1}>
           <RoundedBox args={[2.5, 5, 0.2]} radius={0.2} smoothness={4} position={[0, 2.5, 0]}>
@@ -341,11 +338,9 @@ function BillboardPhoneScene() {
 }
 
 function TarotCards() {
-  const [envMap, socMap, govMap] = useLoader(THREE.TextureLoader, [
-    '/env.png',
-    '/soc.png',
-    '/gov.png',
-  ]);
+  const envMap = useLoader(THREE.TextureLoader, `${BASE_PATH}/env.png`);
+  const socMap = useLoader(THREE.TextureLoader, `${BASE_PATH}/soc.png`);
+  const govMap = useLoader(THREE.TextureLoader, `${BASE_PATH}/gov.png`);
 
   const groupRef = useRef<THREE.Group>(null);
 
@@ -357,7 +352,6 @@ function TarotCards() {
 
   return (
     <group ref={groupRef} position={[0, 0, -2]}>
-      {/* Environmental Card - Left */}
       <Float speed={2} rotationIntensity={0.4} floatIntensity={0.6}>
         <group position={[-5, 0, 0]} rotation={[0, Math.PI / 6, 0]}>
           <Box args={[2, 3.55, 0.08]}>
@@ -371,7 +365,6 @@ function TarotCards() {
         </group>
       </Float>
 
-      {/* Social Card - Top Center */}
       <Float speed={2.5} rotationIntensity={0.2} floatIntensity={0.8}>
         <group position={[0, 3.5, -1]} rotation={[Math.PI / 12, 0, 0]}>
           <Box args={[2, 3.55, 0.08]}>
@@ -385,7 +378,6 @@ function TarotCards() {
         </group>
       </Float>
 
-      {/* Governance Card - Right */}
       <Float speed={1.5} rotationIntensity={0.4} floatIntensity={0.6}>
         <group position={[5, 0, 0]} rotation={[0, -Math.PI / 6, 0]}>
           <Box args={[2, 3.55, 0.08]}>
@@ -530,11 +522,11 @@ function BackgroundScene({ activeSlide }: { activeSlide: number }) {
 
 function ImageCarousel() {
   const carouselData = useMemo(() => [
-    { url: '/csr-presentation/doc-images/image1.jpg', caption: 'Direct engagement at Mall Activations' },
-    { url: '/csr-presentation/doc-images/image2.png', caption: 'Strategic Project Milestones' },
-    { url: '/csr-presentation/doc-images/image3.jpg', caption: 'Educational Social Outreach' },
-    { url: '/csr-presentation/doc-images/image4.jpg', caption: 'Performance Analysis Visuals' },
-    { url: '/csr-presentation/doc-images/image5.png', caption: 'Regional Sustainability Impact' }
+    { url: `${BASE_PATH}/doc-images/image1.jpg`, caption: 'Direct engagement at Mall Activations' },
+    { url: `${BASE_PATH}/doc-images/image2.png`, caption: 'Strategic Project Milestones' },
+    { url: `${BASE_PATH}/doc-images/image3.jpg`, caption: 'Educational Social Outreach' },
+    { url: `${BASE_PATH}/doc-images/image4.jpg`, caption: 'Performance Analysis Visuals' },
+    { url: `${BASE_PATH}/doc-images/image5.png`, caption: 'Regional Sustainability Impact' }
   ], []);
 
   const [current, setCurrent] = useState(0);
@@ -724,7 +716,9 @@ function App() {
       
       <div className="canvas-container">
         <Canvas camera={{ position: [0, 0, 5], fov: 75 }}>
-          <BackgroundScene activeSlide={activeSlide} />
+          <Suspense fallback={null}>
+            <BackgroundScene activeSlide={activeSlide} />
+          </Suspense>
         </Canvas>
       </div>
 
@@ -741,7 +735,6 @@ function App() {
 
       <div className="slides-container" ref={containerRef}>
         
-        {/* Slide 0: Intro */}
         <section className="slide">
           <div className="content-box" onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave}>
             <span className="badge" style={{ color: 'var(--accent-sun)' }}>Intersolar Egypt</span>
@@ -750,7 +743,6 @@ function App() {
           </div>
         </section>
 
-        {/* Slide 1: 1. Background */}
         <section className="slide">
           <div className="content-box" onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave}>
             <div className="grid-2">
@@ -778,7 +770,6 @@ function App() {
           </div>
         </section>
 
-        {/* Slide 2: 2. About Company */}
         <section className="slide">
           <div className="content-box" onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave}>
             <span className="badge" style={{ color: 'var(--accent-wind)' }}>Our Portfolio</span>
@@ -804,7 +795,6 @@ function App() {
           </div>
         </section>
 
-        {/* Slide 3: Implementations */}
         <section className="slide">
           <div className="content-box">
             <span className="badge" style={{ color: 'var(--accent-sun)' }}>Showcase</span>
@@ -814,7 +804,6 @@ function App() {
           </div>
         </section>
 
-        {/* Slide 4: 3. Interview */}
         <section className="slide">
           <div className="content-box" onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave}>
             <span className="badge" style={{ color: 'var(--accent-earth)' }}>Field Insights</span>
@@ -832,7 +821,6 @@ function App() {
           </div>
         </section>
 
-        {/* Slide 5: 4. Campaign Strategy */}
         <section className="slide">
           <div className="content-box" onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave}>
             <h2 style={{ color: 'var(--accent-sun)' }}>SMART STRATEGY.</h2>
@@ -850,12 +838,10 @@ function App() {
           </div>
         </section>
 
-        {/* Slide 6: 5. Execution */}
         <section className="slide">
           <div className="content-box" onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave}>
             <h2 style={{ color: '#38bdf8' }}>DIGITAL FIRST.</h2>
             <p className="lead-text" style={{ marginBottom: '3rem' }}>A practical plan to reach more customers.</p>
-            
             <div className="list-item">
               <div className="list-icon">📱</div>
               <div>
@@ -880,7 +866,6 @@ function App() {
           </div>
         </section>
 
-        {/* Slide 7: 6. Evaluation */}
         <section className="slide">
           <div className="content-box" style={{ textAlign: 'center' }} onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave}>
             <h2 style={{ fontSize: '4rem', color: 'var(--accent-earth)' }}>READY.</h2>
