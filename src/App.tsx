@@ -15,27 +15,27 @@ const slides = [
   },
   {
     "id": "industry-esg",
-    "title": "Industry ESG",
-    "sources": ["IRENA. (2018). Renewable Energy Outlook: Egypt.", "World Bank. (2023)."]
+    "title": "Industry ESG in Egypt",
+    "sources": ["IRENA. (2018).", "World Bank. (2023).", "CMS. (2024)."]
   },
   {
     "id": "company-brief",
-    "title": "Intersolar Egypt",
+    "title": "Chosen Company",
     "sources": ["Intersolar Egypt. (2024). Project Portfolio & Capacity."]
   },
   {
     "id": "interview-analysis",
-    "title": "Interview ESG & SDG",
+    "title": "Interview Analysis",
     "sources": ["Shabaan, R. (2024). Interview on ESG & SDGs in Egypt."]
   },
   {
     "id": "tbl",
     "title": "Triple Bottom Line",
-    "sources": ["Das et al. (2025). Corporate sustainability, ESG, and the TBL."]
+    "sources": ["Das et al. (2025).", "Slaper & Hall. (2011)."]
   },
   {
     "id": "campaign-strategy",
-    "title": "Campaign Execution",
+    "title": "Campaign Strategy",
     "sources": ["Campaign Strategy Document. (2025)."]
   },
   {
@@ -90,11 +90,11 @@ function MorphingSVGBackground({ activeSlide }: { activeSlide: number }) {
     0: { cx: 500, cy: 500, r: 0, strokeWidth: 0, opacity: 0, fill: "transparent", stroke: "#fbbf24" },
     1: { cx: 500, cy: 500, r: 0, strokeWidth: 0, opacity: 0, fill: "transparent", stroke: "#fbbf24" },
     2: { cx: 500, cy: 500, r: 0, strokeWidth: 0, opacity: 0, fill: "transparent", stroke: "#fbbf24" },
-    3: { cx: 500, cy: 200, r: 100, strokeWidth: 0, opacity: 0.6, fill: "#fbbf24", stroke: "transparent" },
-    4: { cx: 500, cy: 500, r: 300, strokeWidth: 20, opacity: 0.4, fill: "transparent", stroke: "#fbbf24" },
-    5: { cx: 500, cy: 200, r: 100, strokeWidth: 0, opacity: 0.6, fill: "#fbbf24", stroke: "transparent" },
-    6: { cx: 800, cy: 800, r: 150, strokeWidth: 0, opacity: 0.4, fill: "#ec4899", stroke: "transparent" },
-    7: { cx: 500, cy: 500, r: 800, strokeWidth: 50, opacity: 0.2, fill: "transparent", stroke: "#fbbf24" },
+    3: { cx: 500, cy: 500, r: 300, strokeWidth: 20, opacity: 0.4, fill: "transparent", stroke: "#fbbf24" },
+    4: { cx: 500, cy: 200, r: 100, strokeWidth: 0, opacity: 0.6, fill: "#fbbf24", stroke: "transparent" },
+    5: { cx: 500, cy: 500, r: 800, strokeWidth: 50, opacity: 0.2, fill: "transparent", stroke: "#fbbf24" },
+    6: { cx: 500, cy: 200, r: 100, strokeWidth: 0, opacity: 0.6, fill: "#fbbf24", stroke: "transparent" },
+    7: { cx: 500, cy: 500, r: 0, strokeWidth: 0, opacity: 0, fill: "transparent", stroke: "#fbbf24" },
   };
 
   return (
@@ -133,7 +133,6 @@ function Planet({ distance, size, color, speed, offset }: { distance: number, si
       mesh.current.rotation.y += 0.01;
     }
   });
-
   return (
     <group>
       <mesh rotation={[Math.PI / 2, 0, 0]}>
@@ -227,12 +226,12 @@ function TarotCards() {
       </Float>
       <Float speed={2.5} rotationIntensity={0.2} floatIntensity={0.8}>
         <group position={[0, 3.5, -1]} rotation={[Math.PI / 12, 0, 0]}>
-          <Box args={[2, 3.55, 0.08]}><meshStandardMaterial attach="material-4" map={socMap} /><meshStandardMaterial attach="material-0" color="#111827" /><meshStandardMaterial attach="material-1" color="#111827" /><meshStandardMaterial attach="material-2" color="#111827" /><meshStandardMaterial attach="material-3" color="#111827" /><meshStandardMaterial attach="material-5" color="#111827" /></Box>
+          <Box args={[2, 3.55, 0.08]}><meshStandardMaterial attach="material-4" map={socMap} /><meshStandardMaterial attach="material-0" color="#111827" /><meshStandardMaterial attach="material-1" color="#111827" /><meshStandardMaterial attach="material-2" color="#111827" /><meshStandardMaterial attach="material-3" color="#111827" /><meshStandardMaterial attach="material-4" map={socMap} /><meshStandardMaterial attach="material-5" color="#111827" /></Box>
         </group>
       </Float>
       <Float speed={1.5} rotationIntensity={0.4} floatIntensity={0.6}>
         <group position={[5, 0, 0]} rotation={[0, -Math.PI / 6, 0]}>
-          <Box args={[2, 3.55, 0.08]}><meshStandardMaterial attach="material-4" map={govMap} /><meshStandardMaterial attach="material-0" color="#111827" /><meshStandardMaterial attach="material-1" color="#111827" /><meshStandardMaterial attach="material-2" color="#111827" /><meshStandardMaterial attach="material-3" color="#111827" /><meshStandardMaterial attach="material-5" color="#111827" /></Box>
+          <Box args={[2, 3.55, 0.08]}><meshStandardMaterial attach="material-4" map={govMap} /><meshStandardMaterial attach="material-0" color="#111827" /><meshStandardMaterial attach="material-1" color="#111827" /><meshStandardMaterial attach="material-2" color="#111827" /><meshStandardMaterial attach="material-3" color="#111827" /><meshStandardMaterial attach="material-4" map={govMap} /><meshStandardMaterial attach="material-5" color="#111827" /></Box>
         </group>
       </Float>
     </group>
@@ -288,8 +287,6 @@ function EarthScene() {
     const t = clock.getElapsedTime();
     if (earthRef.current) earthRef.current.rotation.y = t * 0.05;
     if (cloudRef.current) cloudRef.current.rotation.y = t * 0.07;
-    
-    // Day/Night Cycle: Move the sun light around the Earth
     if (sunRef.current) {
       sunRef.current.position.x = Math.sin(t * 0.2) * 20;
       sunRef.current.position.z = Math.cos(t * 0.2) * 20;
@@ -301,13 +298,7 @@ function EarthScene() {
       <directionalLight ref={sunRef} intensity={2} color="#ffffff" />
       <Float speed={1} floatIntensity={0.5} rotationIntensity={0.1}>
         <Sphere ref={earthRef} args={[4, 64, 64]}>
-          <meshPhongMaterial 
-            map={earthTexture}
-            emissive="#112244"
-            emissiveIntensity={0.1}
-            specular="#333333"
-            shininess={10}
-          />
+          <meshPhongMaterial map={earthTexture} emissive="#112244" emissiveIntensity={0.1} specular="#333333" shininess={10} />
         </Sphere>
         <Sphere ref={cloudRef} args={[4.05, 64, 64]}>
           <meshPhongMaterial color="#ffffff" transparent opacity={0.2} depthWrite={false} />
@@ -419,6 +410,7 @@ function App() {
       <div className="progress-nav">{slides.map((s, i) => (<div key={s.id} className={`dot ${i === activeSlide ? 'active' : ''}`} onClick={() => scrollToSlide(i)} title={s.title} />))}</div>
       <div className="slides-container" ref={containerRef}>
         
+        {/* Slide 0: Intro */}
         <section className="slide">
           <div className="content-box" onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave}>
             <span className="badge" style={{ color: 'var(--accent-sun)' }}>Intersolar Egypt</span>
@@ -427,6 +419,7 @@ function App() {
           </div>
         </section>
 
+        {/* Slide 1: Industry ESG in Egypt */}
         <section className="slide">
           <div className="content-box" onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave}>
             <span className="badge" style={{ color: 'var(--accent-wind)' }}>Industry Analysis</span>
@@ -434,12 +427,13 @@ function App() {
             <div className="stat-number">42%</div>
             <p className="lead-text">Renewable target by 2030.</p>
             <div className="grid-2">
-              <div><h3 style={{ color: 'var(--accent-earth)' }}>Environmental</h3><p style={{ fontSize: '1rem' }}>GHG reduction via Law 203, but requires careful siting to protect desert ecosystems.</p></div>
-              <div><h3 style={{ color: 'var(--accent-sun)' }}>Social & Governance</h3><p style={{ fontSize: '1rem' }}>Job creation in engineering, supported by government stability and grid transparency.</p></div>
+              <div><h3 style={{ color: 'var(--accent-earth)' }}>Environmental</h3><p style={{ fontSize: '0.95rem' }}>Egypt aims to cut carbon emissions through solar/wind projects. This matches global climate goals but requires smart land use to protect desert life (SDG 13, 15).</p></div>
+              <div><h3 style={{ color: 'var(--accent-sun)' }}>Social & Governance</h3><p style={{ fontSize: '0.95rem' }}>Industry growth creates engineering jobs. Success depends on stable government rules and transparent grid permits (SDG 8, 16).</p></div>
             </div>
           </div>
         </section>
 
+        {/* Slide 2: Company Brief */}
         <section className="slide">
           <div className="content-box" onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave}>
             <span className="badge" style={{ color: 'var(--accent-wind)' }}>The Company</span>
@@ -448,58 +442,63 @@ function App() {
             <div className="grid-2">
               <div style={{ background: 'rgba(255,255,255,0.05)', padding: '1.5rem', borderRadius: '1rem' }}>
                 <h3 style={{ color: 'var(--accent-sun)' }}>Portfolio Impact</h3>
-                <ul style={{ listStyle: 'none', fontSize: '1rem' }}><li>• Microsoft: 1,200L (Smart Village)</li><li>• Orange: 6,000L (City Stars)</li><li>• Sinai University: 24 m³</li></ul>
+                <ul style={{ listStyle: 'none', fontSize: '1rem' }}><li>• Microsoft: 1,200L (Smart Village)</li><li>• Orange: 6,000L (City Stars)</li><li>• Petrojet: 2,000L (Borg El Arab)</li><li>• Sinai University: 24 m³</li></ul>
               </div>
               <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}><div className="stat-number" style={{ fontSize: '3rem' }}>53,800+</div><p>Total Liters Capacity</p></div>
             </div>
           </div>
         </section>
 
+        {/* Slide 3: Interview Analysis (ESG & SDG) */}
         <section className="slide">
           <div className="content-box" onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave}>
-            <span className="badge" style={{ color: 'var(--accent-earth)' }}>Interview Analysis</span>
+            <span className="badge" style={{ color: 'var(--accent-earth)' }}>Interview Findings</span>
             <h2>ESG & SDG LINK.</h2>
             <div className="grid-3" style={{ gridTemplateColumns: '1fr 1fr 1fr', gap: '1rem' }}>
-              <div style={{ background: 'rgba(16, 185, 129, 0.1)', padding: '1.2rem', borderRadius: '1rem' }}><h3 style={{ fontSize: '1.2rem' }}>Planet</h3><p style={{ fontSize: '0.85rem' }}>Pollution reduction matching SDG 7 & 13 goals.</p></div>
-              <div style={{ background: 'rgba(56, 189, 248, 0.1)', padding: '1.2rem', borderRadius: '1rem' }}><h3 style={{ fontSize: '1.2rem' }}>People</h3><p style={{ fontSize: '0.85rem' }}>Engineering jobs vs entry cost gaps (SDG 8 & 10).</p></div>
-              <div style={{ background: 'rgba(251, 191, 36, 0.1)', padding: '1.2rem', borderRadius: '1rem' }}><h3 style={{ fontSize: '1.2rem' }}>Policy</h3><p style={{ fontSize: '0.85rem' }}>Private sector drive via SDG 9 & 17 partnerships.</p></div>
+              <div style={{ background: 'rgba(16, 185, 129, 0.1)', padding: '1rem', borderRadius: '1rem' }}><h3 style={{ fontSize: '1.1rem' }}>Planet</h3><p style={{ fontSize: '0.85rem' }}>Wind/solar projects significantly cut air pollution and carbon when compared to fossil fuels (SDG 7, 13).</p></div>
+              <div style={{ background: 'rgba(56, 189, 248, 0.1)', padding: '1rem', borderRadius: '1rem' }}><h3 style={{ fontSize: '1.1rem' }}>People</h3><p style={{ fontSize: '0.85rem' }}>Growth creates more job opportunities in maintenance, though entry costs remain a hurdle (SDG 8, 10).</p></div>
+              <div style={{ background: 'rgba(251, 191, 36, 0.1)', padding: '1rem', borderRadius: '1rem' }}><h3 style={{ fontSize: '1.1rem' }}>Policy</h3><p style={{ fontSize: '0.85rem' }}>Supportive government policies attract private sector investment into the market (SDG 9, 17).</p></div>
             </div>
           </div>
         </section>
 
+        {/* Slide 4: TBL (Triple Bottom Line) */}
         <section className="slide">
           <div className="content-box" onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave}>
             <span className="badge" style={{ color: 'var(--accent-sun)' }}>Framework</span>
             <h2>TRIPLE BOTTOM LINE.</h2>
             <div className="grid-3" style={{ gap: '1.5rem' }}>
-              <div><h3 style={{ color: 'var(--accent-earth)' }}>Planet</h3><p style={{ fontSize: '0.9rem' }}>Grid readiness and biodiversity management.</p></div>
-              <div><h3 style={{ color: 'var(--accent-wind)' }}>People</h3><p style={{ fontSize: '0.9rem' }}>Affordability and equitable energy access.</p></div>
-              <div><h3 style={{ color: '#fb923c' }}>Profit</h3><p style={{ fontSize: '0.9rem' }}>Regulatory clarity and institutional bankability.</p></div>
+              <div><h3 style={{ color: 'var(--accent-earth)' }}>Planet</h3><p style={{ fontSize: '0.9rem' }}>Grid readiness and managing biodiversity. Smart project siting is the main environmental focus.</p></div>
+              <div><h3 style={{ color: 'var(--accent-wind)' }}>People</h3><p style={{ fontSize: '0.9rem' }}>Affordability is decisive. Targeted support can widen energy access for more households.</p></div>
+              <div><h3 style={{ color: '#fb923c' }}>Profit</h3><p style={{ fontSize: '0.9rem' }}>Clear permits and coordinated agency oversight reduce risks for lenders and investors.</p></div>
             </div>
           </div>
         </section>
 
+        {/* Slide 5: Campaign Strategy */}
         <section className="slide">
           <div className="content-box" onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave}>
             <span className="badge" style={{ color: '#38bdf8' }}>Campaign Plan</span>
-            <h2>STRATEGY.</h2>
+            <h2>CAMPAIGN STRATEGY.</h2>
             <div style={{ marginBottom: '2rem' }}>
-              <h3>Message</h3><p style={{ fontSize: '1.3rem' }}>"Invest today, save tomorrow. Clean energy = clean future."</p>
-              <h3>Target</h3><p style={{ fontSize: '1.1rem' }}>Middle/Upper class households & small businesses (25-40 years old).</p>
-              <h3>Objective</h3><p style={{ fontSize: '1.1rem' }}>+30% perception shift towards solar investment within 2 years.</p>
+              <h3>Message</h3><p style={{ fontSize: '1.2rem' }}>"Invest today, save tomorrow. Clean energy = clean future."</p>
+              <h3>Target</h3><p style={{ fontSize: '1rem' }}>Middle/Upper class households facing high power costs and small businesses (Ages 25-40).</p>
+              <h3>Objective</h3><p style={{ fontSize: '1rem' }}>Increase positive perception of solar investment by 30% within 2 years.</p>
             </div>
           </div>
         </section>
 
+        {/* Slide 6: Execution Showcase */}
         <section className="slide">
           <div className="content-box">
-            <span className="badge" style={{ color: 'var(--accent-sun)' }}>Showcase</span>
+            <span className="badge" style={{ color: 'var(--accent-sun)' }}>Gallery</span>
             <h2>EXECUTION.</h2>
-            <p className="lead-text">Omnichannel implementation across digital and on-ground activations.</p>
+            <p className="lead-text">Practical plan using social media, mall activations, and strategic partnerships.</p>
             <ImageCarousel />
           </div>
         </section>
 
+        {/* Slide 7: Conclusion */}
         <section className="slide">
           <div className="content-box" style={{ textAlign: 'center' }} onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave}>
             <h2 style={{ fontSize: '4rem', color: 'var(--accent-earth)' }}>READY.</h2>
