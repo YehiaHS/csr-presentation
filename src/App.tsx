@@ -11,63 +11,52 @@ const slides = [
   {
     "id": "home",
     "title": "Power Your Future",
-    "sources": [
-      "State Information Service. (2025). Egypt's Energy Sector."
-    ]
+    "sources": ["State Information Service. (2025). Egypt's Energy Sector."]
   },
   {
     "id": "background",
     "title": "The Shift",
-    "sources": [
-      "IRENA. (2018). Renewable Energy Outlook: Egypt.",
-      "World Bank. (2023). Financing Renewable Energy in Egypt."
-    ]
+    "sources": ["IRENA. (2018). Renewable Energy Outlook: Egypt.", "World Bank. (2023). Financing Renewable Energy in Egypt."]
   },
   {
     "id": "company",
     "title": "Real Results",
-    "sources": [
-      "Intersolar Egypt. (2024). Project Portfolio & Capacity."
-    ]
+    "sources": ["Intersolar Egypt. (2024). Project Portfolio & Capacity."]
+  },
+  {
+    "id": "interview-analysis",
+    "title": "ESG Findings",
+    "sources": ["Shabaan, R. (2024). Interview on ESG & SDGs in Egypt."]
+  },
+  {
+    "id": "material-issues",
+    "title": "Material Issues",
+    "sources": ["IRENA. (2018).", "World Bank. (2023)."]
   },
   {
     "id": "implementations",
     "title": "Implementations",
-    "sources": [
-      "Intersolar Egypt. (2024). Field Implementation Report."
-    ]
+    "sources": ["Intersolar Egypt. (2024). Field Implementation Report."]
   },
   {
-    "id": "interview",
-    "title": "The Reality",
-    "sources": [
-      "Global Climate Initiatives. (2025). CSR and the SDGs.",
-      "Das et al. (2025). Corporate sustainability, ESG, and the TBL."
-    ]
+    "id": "campaign-objective",
+    "title": "Campaign Goal",
+    "sources": ["Campaign Strategy Document. (2025)."]
   },
   {
     "id": "strategy",
     "title": "Smart Strategy",
-    "sources": [
-      "Freeman, R. E. (1984). Strategic Management: A Stakeholder Approach.",
-      "Gutterman, A. S. (2024). Stakeholder theory and CSR."
-    ]
+    "sources": ["Gutterman, A. S. (2024). Stakeholder theory and CSR."]
   },
   {
     "id": "execution",
     "title": "Digital First",
-    "sources": [
-      "United Nations. (2015). Transforming our world.",
-      "IFC. (2012). Performance Standards."
-    ]
+    "sources": ["United Nations. (2015).", "IFC. (2012)."]
   },
   {
     "id": "evaluation",
     "title": "Ready",
-    "sources": [
-      "World Bank. (2023). Financing Renewable Energy in Egypt.",
-      "IRENA. (2018). Renewable Energy Outlook: Egypt."
-    ]
+    "sources": ["World Bank. (2023).", "IRENA. (2018)."]
   }
 ];
 
@@ -78,11 +67,13 @@ function MorphingSVGBackground({ activeSlide }: { activeSlide: number }) {
     0: { d: "M 0 1000 C 300 800, 700 800, 1000 1000 L 1000 1000 L 0 1000 Z", fill: "#fbbf24", opacity: 0.3 },
     1: { d: "M 0 400 C 200 800, 800 200, 1000 600 L 1000 1000 L 0 1000 Z", fill: "#38bdf8", opacity: 0.4 },
     2: { d: "M 0 500 C 300 300, 700 600, 1000 400 L 1000 1000 L 0 1000 Z", fill: "#1e293b", opacity: 0.6 },
-    3: { d: "M 0 1000 C 300 600, 700 600, 1000 1000 L 1000 1000 L 0 1000 Z", fill: "#38bdf8", opacity: 0.4 },
-    4: { d: "M 0 0 C 400 0, 600 1000, 1000 1000 L 1000 1000 L 0 1000 Z", fill: "#10b981", opacity: 0.3 },
-    5: { d: "M 0 1000 C 300 600, 700 600, 1000 1000 L 1000 1000 L 0 1000 Z", fill: "#fcd34d", opacity: 0.4 },
-    6: { d: "M 0 500 C 250 200, 750 800, 1000 500 L 1000 1000 L 0 1000 Z", fill: "#0ea5e9", opacity: 0.3 },
-    7: { d: "M 0 200 C 300 500, 700 0, 1000 200 L 1000 1000 L 0 1000 Z", fill: "#059669", opacity: 0.5 },
+    3: { d: "M 0 0 C 400 0, 600 1000, 1000 1000 L 1000 1000 L 0 1000 Z", fill: "#10b981", opacity: 0.3 },
+    4: { d: "M 0 1000 C 300 600, 700 600, 1000 1000 L 1000 1000 L 0 1000 Z", fill: "#38bdf8", opacity: 0.4 },
+    5: { d: "M 0 0 C 400 0, 600 1000, 1000 1000 L 1000 1000 L 0 1000 Z", fill: "#10b981", opacity: 0.3 },
+    6: { d: "M 0 1000 C 300 600, 700 600, 1000 1000 L 1000 1000 L 0 1000 Z", fill: "#fcd34d", opacity: 0.4 },
+    7: { d: "M 0 500 C 250 200, 750 800, 1000 500 L 1000 1000 L 0 1000 Z", fill: "#0ea5e9", opacity: 0.3 },
+    8: { d: "M 0 200 C 300 500, 700 0, 1000 200 L 1000 1000 L 0 1000 Z", fill: "#059669", opacity: 0.5 },
+    9: { d: "M 0 1000 C 300 800, 700 800, 1000 1000 L 1000 1000 L 0 1000 Z", fill: "#fbbf24", opacity: 0.3 },
   };
 
   const path2Variants = {
@@ -94,6 +85,8 @@ function MorphingSVGBackground({ activeSlide }: { activeSlide: number }) {
     5: { d: "M 300 1000 C 400 700, 600 700, 700 1000 L 700 1000 L 300 1000 Z", fill: "#d97706", opacity: 0.4 },
     6: { d: "M 0 600 C 250 300, 750 900, 1000 600 L 1000 1000 L 0 1000 Z", fill: "#38bdf8", opacity: 0.3 },
     7: { d: "M 0 400 C 300 700, 700 200, 1000 400 L 1000 1000 L 0 1000 Z", fill: "#34d399", opacity: 0.4 },
+    8: { d: "M 0 1000 C 200 900, 800 900, 1000 1000 L 1000 1000 L 0 1000 Z", fill: "#e0f2fe", opacity: 0 },
+    9: { d: "M 0 1000 C 200 900, 800 900, 1000 1000 L 1000 1000 L 0 1000 Z", fill: "#e0f2fe", opacity: 0 },
   };
 
   const path3Variants = {
@@ -105,6 +98,8 @@ function MorphingSVGBackground({ activeSlide }: { activeSlide: number }) {
     5: { d: "M 450 1000 C 500 400, 500 400, 550 1000 L 550 1000 L 450 1000 Z", fill: "#ffffff", opacity: 0.2 },
     6: { d: "M 0 700 C 250 400, 750 1000, 1000 700 L 1000 1000 L 0 1000 Z", fill: "#bae6fd", opacity: 0.2 },
     7: { d: "M 0 600 C 300 900, 700 400, 1000 600 L 1000 1000 L 0 1000 Z", fill: "#10b981", opacity: 0.4 },
+    8: { d: "M 500 1000 C 500 1000, 500 1000, 500 1000 L 500 1000 L 500 1000 Z", fill: "#334155", opacity: 0 },
+    9: { d: "M 500 1000 C 500 1000, 500 1000, 500 1000 L 500 1000 L 500 1000 Z", fill: "#334155", opacity: 0 },
   };
 
   const circleVariants = {
@@ -116,6 +111,8 @@ function MorphingSVGBackground({ activeSlide }: { activeSlide: number }) {
     5: { cx: 500, cy: 200, r: 100, strokeWidth: 0, opacity: 0.6, fill: "#fbbf24", stroke: "transparent" },
     6: { cx: 800, cy: 800, r: 150, strokeWidth: 0, opacity: 0.4, fill: "#ec4899", stroke: "transparent" },
     7: { cx: 500, cy: 500, r: 800, strokeWidth: 50, opacity: 0.2, fill: "transparent", stroke: "#fbbf24" },
+    8: { cx: 500, cy: 500, r: 0, strokeWidth: 0, opacity: 0, fill: "transparent", stroke: "#fbbf24" },
+    9: { cx: 500, cy: 500, r: 0, strokeWidth: 0, opacity: 0, fill: "transparent", stroke: "#fbbf24" },
   };
 
   return (
@@ -508,11 +505,13 @@ function BackgroundScene({ activeSlide }: { activeSlide: number }) {
         <group position={[0, 0, 0]}><SolarSystem /></group>
         <group position={[0, -sceneSpacing * 1, 0]}><ContextScene /></group>
         <group position={[0, -sceneSpacing * 2, 0]}><CompanyScene /></group>
-        <group position={[0, -sceneSpacing * 3, 0]}><BillboardPhoneScene /></group>
-        <group position={[0, -sceneSpacing * 4, 0]}><TarotCards /></group>
-        <group position={[0, -sceneSpacing * 5, 0]}><HouseScene /></group>
-        <group position={[0, -sceneSpacing * 6, 0]}><PhoneScene /></group>
-        <group position={[0, -sceneSpacing * 7, 0]}><ChartScene /></group>
+        <group position={[0, -sceneSpacing * 3, 0]}><TarotCards /></group>
+        <group position={[0, -sceneSpacing * 4, 0]}><BillboardPhoneScene /></group>
+        <group position={[0, -sceneSpacing * 5, 0]}><TarotCards /></group>
+        <group position={[0, -sceneSpacing * 6, 0]}><HouseScene /></group>
+        <group position={[0, -sceneSpacing * 7, 0]}><PhoneScene /></group>
+        <group position={[0, -sceneSpacing * 8, 0]}><ChartScene /></group>
+        <group position={[0, -sceneSpacing * 9, 0]}><ChartScene /></group>
       </group>
       
       <Environment preset="night" />
@@ -735,6 +734,7 @@ function App() {
 
       <div className="slides-container" ref={containerRef}>
         
+        {/* Slide 0: Intro */}
         <section className="slide">
           <div className="content-box" onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave}>
             <span className="badge" style={{ color: 'var(--accent-sun)' }}>Intersolar Egypt</span>
@@ -743,6 +743,7 @@ function App() {
           </div>
         </section>
 
+        {/* Slide 1: Background */}
         <section className="slide">
           <div className="content-box" onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave}>
             <div className="grid-2">
@@ -770,12 +771,13 @@ function App() {
           </div>
         </section>
 
+        {/* Slide 2: About Company */}
         <section className="slide">
           <div className="content-box" onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave}>
-            <span className="badge" style={{ color: 'var(--accent-wind)' }}>Our Portfolio</span>
-            <h2 style={{ color: 'var(--text-primary)' }}>REAL RESULTS.</h2>
+            <span className="badge" style={{ color: 'var(--accent-wind)' }}>The Company</span>
+            <h2 style={{ color: 'var(--text-primary)' }}>INTERSOLAR EGYPT.</h2>
             <div className="stat-number" style={{ fontSize: '4.5rem', color: 'var(--accent-sun)' }}>53,800+ Liters</div>
-            <p className="lead-text" style={{ marginBottom: '2rem' }}>Of solar heating capacity installed across Egypt.</p>
+            <p className="lead-text" style={{ marginBottom: '2rem' }}>Leading solar energy solutions provider established in Egypt.</p>
             <div className="grid-2" style={{ gap: '1rem' }}>
               <div>
                 <ul className="clean-list" style={{ listStyle: 'none' }}>
@@ -795,6 +797,51 @@ function App() {
           </div>
         </section>
 
+        {/* Slide 3: Interview Findings (ESG) */}
+        <section className="slide">
+          <div className="content-box" onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave}>
+            <span className="badge" style={{ color: 'var(--accent-earth)' }}>Interview Analysis</span>
+            <h2>ESG FINDINGS.</h2>
+            <div className="grid-3" style={{ gridTemplateColumns: '1fr 1fr 1fr', gap: '1.5rem' }}>
+              <div style={{ background: 'rgba(16, 185, 129, 0.1)', padding: '1.5rem', borderRadius: '1rem', border: '1px solid rgba(16, 185, 129, 0.2)' }}>
+                <h3 style={{ color: 'var(--accent-earth)' }}>Environmental</h3>
+                <p style={{ fontSize: '0.9rem', margin: 0 }}>Reduces pollution and carbon emissions. Highlights need for smart land use (SDG 7, 13, 15).</p>
+              </div>
+              <div style={{ background: 'rgba(56, 189, 248, 0.1)', padding: '1.5rem', borderRadius: '1rem', border: '1px solid rgba(56, 189, 248, 0.2)' }}>
+                <h3 style={{ color: 'var(--accent-wind)' }}>Social</h3>
+                <p style={{ fontSize: '0.9rem', margin: 0 }}>Generates engineering jobs but reveals skills gaps and high entry costs (SDG 4, 8, 10).</p>
+              </div>
+              <div style={{ background: 'rgba(251, 191, 36, 0.1)', padding: '1.5rem', borderRadius: '1rem', border: '1px solid rgba(251, 191, 36, 0.2)' }}>
+                <h3 style={{ color: 'var(--accent-sun)' }}>Governance</h3>
+                <p style={{ fontSize: '0.9rem', margin: 0 }}>Supportive policies exist, but transparency and long-term stability are key (SDG 9, 16, 17).</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Slide 4: Material ESG Issues */}
+        <section className="slide">
+          <div className="content-box" onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave}>
+            <span className="badge" style={{ color: '#f43f5e' }}>Strategic Focus</span>
+            <h2>MATERIAL ISSUES.</h2>
+            <div className="grid-2">
+              <div>
+                <h3 style={{ color: 'var(--text-primary)' }}>Grid Integration</h3>
+                <p style={{ fontSize: '1rem' }}>Modernizing transmission to handle solar/wind variability (SDG 9).</p>
+                <h3 style={{ color: 'var(--text-primary)' }}>Land Use</h3>
+                <p style={{ fontSize: '1rem' }}>Siting projects to protect desert biodiversity (SDG 15).</p>
+              </div>
+              <div>
+                <h3 style={{ color: 'var(--text-primary)' }}>Affordability</h3>
+                <p style={{ fontSize: '1rem' }}>Ensuring lower-income households aren't excluded (SDG 10).</p>
+                <h3 style={{ color: 'var(--text-primary)' }}>Regulatory Roles</h3>
+                <p style={{ fontSize: '1rem' }}>Streamlining permits and agency coordination (SDG 17).</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Slide 5: Implementations */}
         <section className="slide">
           <div className="content-box">
             <span className="badge" style={{ color: 'var(--accent-sun)' }}>Showcase</span>
@@ -804,23 +851,24 @@ function App() {
           </div>
         </section>
 
+        {/* Slide 6: Campaign Objective */}
         <section className="slide">
           <div className="content-box" onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave}>
-            <span className="badge" style={{ color: 'var(--accent-earth)' }}>Field Insights</span>
-            <h2>THE REALITY.</h2>
-            <div className="grid-2">
-              <div style={{ background: 'rgba(16, 185, 129, 0.1)', padding: '2rem', borderRadius: '1.5rem', border: '1px solid rgba(16, 185, 129, 0.2)' }}>
-                <h3 style={{ color: 'var(--accent-earth)' }}>The Good</h3>
-                <p style={{ margin: 0 }}>Fast job growth in engineering and maintenance. Fits SDG 7 and 13 targets for cleaner air.</p>
-              </div>
-              <div style={{ background: 'rgba(244, 63, 94, 0.1)', padding: '2rem', borderRadius: '1.5rem', border: '1px solid rgba(244, 63, 94, 0.2)' }}>
-                <h3 style={{ color: '#f43f5e' }}>The Gap</h3>
-                <p style={{ margin: 0 }}>High upfront costs lock out many households. Grid limits and a lack of technical skills are the main hurdles.</p>
-              </div>
+            <span className="badge" style={{ color: 'var(--accent-wind)' }}>Smart Objective</span>
+            <h2>CAMPAIGN GOAL.</h2>
+            <div style={{ marginBottom: '2rem' }}>
+              <h3 style={{ color: 'var(--accent-sun)' }}>Perception Shift</h3>
+              <p className="lead-text">Increase positive perception of solar as a long-term investment by 30% within 2 years.</p>
+            </div>
+            <div className="grid-3" style={{ gap: '1rem' }}>
+              <div><strong>Measurable:</strong> Campaign Surveys</div>
+              <div><strong>Achievable:</strong> Digital Strategy</div>
+              <div><strong>Relevant:</strong> SDG 7 & 13</div>
             </div>
           </div>
         </section>
 
+        {/* Slide 7: Strategy */}
         <section className="slide">
           <div className="content-box" onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave}>
             <h2 style={{ color: 'var(--accent-sun)' }}>SMART STRATEGY.</h2>
@@ -838,6 +886,7 @@ function App() {
           </div>
         </section>
 
+        {/* Slide 8: Execution */}
         <section className="slide">
           <div className="content-box" onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave}>
             <h2 style={{ color: '#38bdf8' }}>DIGITAL FIRST.</h2>
@@ -853,7 +902,7 @@ function App() {
               <div className="list-icon">🤝</div>
               <div>
                 <h3 style={{ margin: 0 }}>Strategic Partnerships</h3>
-                <p>Working with local organizations to make solar systems more accessible to the community (SDG 17).</p>
+                <p>Working with local organizations to make solar systems more accessible (SDG 17).</p>
               </div>
             </div>
             <div className="list-item">
@@ -866,6 +915,7 @@ function App() {
           </div>
         </section>
 
+        {/* Slide 9: Evaluation */}
         <section className="slide">
           <div className="content-box" style={{ textAlign: 'center' }} onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave}>
             <h2 style={{ fontSize: '4rem', color: 'var(--accent-earth)' }}>READY.</h2>
