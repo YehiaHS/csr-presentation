@@ -365,21 +365,18 @@ function BackgroundScene({ activeSlide }: { activeSlide: number }) {
 function ImageCarousel() {
   const carouselData = useMemo(() => [
     { url: `${BASE_PATH}/doc-images/image1.jpg`, caption: 'On-Ground Engagement' },
-    { url: `${BASE_PATH}/doc-images/image2.png`, caption: 'Project Capacity Data' },
     { url: `${BASE_PATH}/doc-images/image3.jpg`, caption: 'Social Outreach Campaign' },
-    { url: `${BASE_PATH}/doc-images/image4.jpg`, caption: 'Performance Analysis' },
-    { url: `${BASE_PATH}/doc-images/image5.png`, caption: 'Sustainability Impact' }
+    { url: `${BASE_PATH}/doc-images/image4.jpg`, caption: 'Performance Analysis' }
   ], []);
   const [current, setCurrent] = useState(0);
   const [isExpanded, setIsExpanded] = useState(false);
-  useEffect(() => {
-    if (isExpanded) return;
-    const timer = setInterval(() => { setCurrent(c => (c + 1) % carouselData.length); }, 4000);
-    return () => clearInterval(timer);
-  }, [carouselData.length, isExpanded]);
+
   return (
     <>
-      <div onClick={() => setIsExpanded(true)} style={{ position: 'relative', width: '100%', height: '300px', borderRadius: '1rem', overflow: 'hidden', marginTop: '2rem', boxShadow: '0 15px 35px rgba(0,0,0,0.6)', cursor: 'pointer' }}>
+      <div 
+        onClick={() => setCurrent(c => (c + 1) % carouselData.length)} 
+        style={{ position: 'relative', width: '100%', height: '300px', borderRadius: '1rem', overflow: 'hidden', marginTop: '2rem', boxShadow: '0 15px 35px rgba(0,0,0,0.6)', cursor: 'pointer' }}
+      >
         <AnimatePresence mode="wait">
           <motion.div key={current} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.6 }} style={{ position: 'absolute', width: '100%', height: '100%' }}>
             <img src={carouselData[current].url} style={{ width: '100%', height: '100%', objectFit: 'cover' }} alt={carouselData[current].caption} />
@@ -387,20 +384,53 @@ function ImageCarousel() {
           </motion.div>
         </AnimatePresence>
         <div style={{ position: 'absolute', bottom: '1rem', right: '1.5rem', display: 'flex', gap: '0.5rem' }}>{carouselData.map((_, i) => (<div key={i} style={{ width: '6px', height: '6px', borderRadius: '50%', background: i === current ? 'var(--accent-sun)' : 'rgba(255,255,255,0.3)', transition: 'all 0.3s' }} />))}</div>
+        <div style={{ position: 'absolute', top: '1rem', right: '1rem', background: 'rgba(0,0,0,0.5)', padding: '0.5rem', borderRadius: '0.5rem', color: 'white', fontSize: '0.7rem' }}>Click to next</div>
       </div>
+      <div style={{ textAlign: 'center', marginTop: '1rem' }}>
+        <button onClick={() => setIsExpanded(true)} style={{ background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)', color: 'white', padding: '0.5rem 1rem', borderRadius: '100px', cursor: 'pointer', fontSize: '0.8rem' }}>Expand View</button>
+      </div>
+
       <AnimatePresence>
         {isExpanded && (
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} style={{ position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh', zIndex: 1000, backgroundColor: 'rgba(0,0,0,0.95)', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '2rem' }}>
-            <button onClick={(e) => { e.stopPropagation(); setIsExpanded(false); }} style={{ position: 'absolute', top: '2rem', left: '2rem', background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)', color: 'white', padding: '0.75rem 1.5rem', borderRadius: '100px', cursor: 'pointer', fontWeight: '600', backdropFilter: 'blur(10px)', zIndex: 1001 }}>← BACK</button>
-            <div style={{ position: 'relative', width: '90vw', height: '70vh', cursor: 'pointer' }} onClick={() => setCurrent(c => (c + 1) % carouselData.length)}>
+          <motion.div 
+            initial={{ opacity: 0 }} 
+            animate={{ opacity: 1 }} 
+            exit={{ opacity: 0 }} 
+            style={{ position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh', zIndex: 1000, backgroundColor: 'rgba(0,0,0,0.95)', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}
+          >
+            <button 
+              onClick={(e) => { e.stopPropagation(); setIsExpanded(false); }} 
+              style={{ position: 'absolute', top: '2rem', left: '2rem', background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)', color: 'white', padding: '0.75rem 1.5rem', borderRadius: '100px', cursor: 'pointer', fontWeight: '600', backdropFilter: 'blur(10px)', zIndex: 1001 }}
+            >
+              ← BACK
+            </button>
+            <div 
+              style={{ position: 'relative', width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }} 
+              onClick={() => setCurrent(c => (c + 1) % carouselData.length)}
+            >
               <AnimatePresence mode="wait">
-                <motion.img key={current} src={carouselData[current].url} initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 1.1 }} transition={{ duration: 0.4 }} style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+                <motion.div 
+                  key={current}
+                  initial={{ opacity: 0, scale: 0.95 }} 
+                  animate={{ opacity: 1, scale: 1 }} 
+                  exit={{ opacity: 0, scale: 1.05 }} 
+                  transition={{ duration: 0.4 }}
+                  style={{ width: '80vw', height: '80vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}
+                >
+                  <img 
+                    src={carouselData[current].url} 
+                    style={{ maxWidth: '100%', maxHeight: '70vh', objectFit: 'contain', borderRadius: '1rem', boxShadow: '0 20px 50px rgba(0,0,0,0.5)' }} 
+                    alt={carouselData[current].caption} 
+                  />
+                  <h3 style={{ color: 'white', marginTop: '2rem', fontSize: '1.5rem' }}>{carouselData[current].caption}</h3>
+                  <div style={{ display: 'flex', gap: '0.8rem', marginTop: '1.5rem' }}>
+                    {carouselData.map((_, i) => (
+                      <div key={i} style={{ width: '10px', height: '10px', borderRadius: '50%', background: i === current ? 'var(--accent-sun)' : 'rgba(255,255,255,0.2)' }} />
+                    ))}
+                  </div>
+                  <p style={{ color: 'rgba(255,255,255,0.4)', marginTop: '1rem', fontSize: '0.9rem' }}>Click anywhere to next</p>
+                </motion.div>
               </AnimatePresence>
-            </div>
-            <div style={{ marginTop: '2rem', textAlign: 'center' }}>
-              <h3 style={{ color: 'white', marginBottom: '1rem' }}>{carouselData[current].caption}</h3>
-              <div style={{ display: 'flex', gap: '0.5rem', justifyContent: 'center' }}>{carouselData.map((_, i) => (<div key={i} style={{ width: '10px', height: '10px', borderRadius: '50%', background: i === current ? 'var(--accent-sun)' : 'rgba(255,255,255,0.2)' }} />))}</div>
-              <p style={{ color: 'rgba(255,255,255,0.5)', marginTop: '1rem', fontSize: '0.8rem' }}>Click image to cycle</p>
             </div>
           </motion.div>
         )}
@@ -481,9 +511,29 @@ function App() {
             <span className="badge" style={{ color: 'var(--accent-earth)' }}>Interview Findings</span>
             <h2>ESG & SDG LINK.</h2>
             <div className="grid-3" style={{ gridTemplateColumns: '1fr 1fr 1fr', gap: '1rem' }}>
-              <div style={{ background: 'rgba(16, 185, 129, 0.1)', padding: '1rem', borderRadius: '1rem' }}><h3 style={{ fontSize: '1.1rem' }}>Planet</h3><p style={{ fontSize: '0.85rem' }}>Wind/solar projects significantly cut air pollution and carbon when compared to fossil fuels (SDG 7, 13).</p></div>
-              <div style={{ background: 'rgba(56, 189, 248, 0.1)', padding: '1rem', borderRadius: '1rem' }}><h3 style={{ fontSize: '1.1rem' }}>People</h3><p style={{ fontSize: '0.85rem' }}>Growth creates more job opportunities in maintenance, though entry costs remain a hurdle (SDG 8, 10).</p></div>
-              <div style={{ background: 'rgba(251, 191, 36, 0.1)', padding: '1rem', borderRadius: '1rem' }}><h3 style={{ fontSize: '1.1rem' }}>Policy</h3><p style={{ fontSize: '0.85rem' }}>Supportive government policies attract private sector investment into the market (SDG 9, 17).</p></div>
+              <div style={{ background: 'rgba(16, 185, 129, 0.1)', padding: '1.5rem', borderRadius: '1rem' }}>
+                <h3 style={{ fontSize: '1.2rem', color: 'var(--accent-earth)' }}>Environmental</h3>
+                <ul className="clean-list" style={{ fontSize: '0.85rem', listStyle: 'none', padding: 0 }}>
+                  <li style={{ marginBottom: '0.5rem' }}>• Plays a crucial role in reducing air pollution & carbon emissions</li>
+                  <li>• Strategy of Egypt aligns with global climate goals (decreasing reliance on non-renewable)</li>
+                </ul>
+              </div>
+              <div style={{ background: 'rgba(56, 189, 248, 0.1)', padding: '1.5rem', borderRadius: '1rem' }}>
+                <h3 style={{ fontSize: '1.2rem', color: 'var(--accent-wind)' }}>Social</h3>
+                <ul className="clean-list" style={{ fontSize: '0.85rem', listStyle: 'none', padding: 0 }}>
+                  <li style={{ marginBottom: '0.3rem' }}>• Generating more job opportunities</li>
+                  <li style={{ marginBottom: '0.3rem' }}>• Gap in skills in advanced areas</li>
+                  <li style={{ marginBottom: '0.3rem' }}>• Limited access due to its high cost</li>
+                  <li>• More education is needed</li>
+                </ul>
+              </div>
+              <div style={{ background: 'rgba(251, 191, 36, 0.1)', padding: '1.5rem', borderRadius: '1rem' }}>
+                <h3 style={{ fontSize: '1.2rem', color: 'var(--accent-sun)' }}>Governance</h3>
+                <ul className="clean-list" style={{ fontSize: '0.85rem', listStyle: 'none', padding: 0 }}>
+                  <li style={{ marginBottom: '0.5rem' }}>• Policies play a role attracting private sector to invest</li>
+                  <li>• Improvements in transparency and long-term stability</li>
+                </ul>
+              </div>
             </div>
           </div>
         </section>
