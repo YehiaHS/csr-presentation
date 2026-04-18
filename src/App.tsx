@@ -44,6 +44,11 @@ const slides = [
     "sources": ["Intersolar Egypt. (2024). Field Implementation Report."]
   },
   {
+    "id": "campaign-video",
+    "title": "Campaign Video",
+    "sources": ["AI Generated Content. (2026). ElevenLabs Voice Synthesis."]
+  },
+  {
     "id": "evaluation",
     "title": "Conclusion",
     "sources": ["World Bank. (2023).", "IRENA. (2018)."]
@@ -61,7 +66,8 @@ function MorphingSVGBackground({ activeSlide }: { activeSlide: number }) {
     4: { d: "M 0 1000 C 300 600, 700 600, 1000 1000 L 1000 1000 L 0 1000 Z", fill: "#fcd34d", opacity: 0.4 },
     5: { d: "M 0 200 C 300 500, 700 0, 1000 200 L 1000 1000 L 0 1000 Z", fill: "#059669", opacity: 0.5 },
     6: { d: "M 0 1000 C 300 600, 700 600, 1000 1000 L 1000 1000 L 0 1000 Z", fill: "#38bdf8", opacity: 0.4 },
-    7: { d: "M 0 0 C 400 0, 600 1000, 1000 1000 L 1000 1000 L 0 1000 Z", fill: "#10b981", opacity: 0.2 },
+    7: { d: "M 0 200 C 300 500, 700 0, 1000 200 L 1000 1000 L 0 1000 Z", fill: "#ec4899", opacity: 0.3 },
+    8: { d: "M 0 0 C 400 0, 600 1000, 1000 1000 L 1000 1000 L 0 1000 Z", fill: "#10b981", opacity: 0.2 },
   };
 
   const path2Variants = {
@@ -72,7 +78,8 @@ function MorphingSVGBackground({ activeSlide }: { activeSlide: number }) {
     4: { d: "M 0 1000 C 400 1000, 600 0, 1000 0 L 1000 1000 L 0 1000 Z", fill: "#f43f5e", opacity: 0.2 },
     5: { d: "M 300 1000 C 400 700, 600 700, 700 1000 L 700 1000 L 300 1000 Z", fill: "#d97706", opacity: 0.4 },
     6: { d: "M 0 600 C 250 300, 750 900, 1000 600 L 1000 1000 L 0 1000 Z", fill: "#38bdf8", opacity: 0.3 },
-    7: { d: "M 0 1000 C 200 900, 800 900, 1000 1000 L 1000 1000 L 0 1000 Z", fill: "#e0f2fe", opacity: 0 },
+    7: { d: "M 0 600 C 400 400, 600 900, 1000 500 L 1000 1000 L 0 1000 Z", fill: "#c084fc", opacity: 0.3 },
+    8: { d: "M 0 1000 C 200 900, 800 900, 1000 1000 L 1000 1000 L 0 1000 Z", fill: "#e0f2fe", opacity: 0 },
   };
 
   const path3Variants = {
@@ -83,7 +90,8 @@ function MorphingSVGBackground({ activeSlide }: { activeSlide: number }) {
     4: { d: "M 450 1000 C 500 400, 500 400, 550 1000 L 550 1000 L 450 1000 Z", fill: "#ffffff", opacity: 0.2 },
     5: { d: "M 0 600 C 300 900, 700 400, 1000 600 L 1000 1000 L 0 1000 Z", fill: "#10b981", opacity: 0.4 },
     6: { d: "M 450 1000 C 500 400, 500 400, 550 1000 L 550 1000 L 450 1000 Z", fill: "#ffffff", opacity: 0.2 },
-    7: { d: "M 500 1000 C 500 1000, 500 1000, 500 1000 L 500 1000 L 500 1000 Z", fill: "#334155", opacity: 0 },
+    7: { d: "M 0 600 C 300 900, 700 400, 1000 600 L 1000 1000 L 0 1000 Z", fill: "#f472b6", opacity: 0.4 },
+    8: { d: "M 500 1000 C 500 1000, 500 1000, 500 1000 L 500 1000 L 500 1000 Z", fill: "#334155", opacity: 0 },
   };
 
   const circleVariants = {
@@ -94,7 +102,8 @@ function MorphingSVGBackground({ activeSlide }: { activeSlide: number }) {
     4: { cx: 500, cy: 500, r: 300, strokeWidth: 20, opacity: 0.4, fill: "transparent", stroke: "#fbbf24" },
     5: { cx: 500, cy: 200, r: 100, strokeWidth: 0, opacity: 0.6, fill: "#fbbf24", stroke: "transparent" },
     6: { cx: 800, cy: 800, r: 150, strokeWidth: 0, opacity: 0.4, fill: "#ec4899", stroke: "transparent" },
-    7: { cx: 500, cy: 500, r: 800, strokeWidth: 50, opacity: 0.2, fill: "transparent", stroke: "#fbbf24" },
+    7: { cx: 500, cy: 500, r: 800, strokeWidth: 50, opacity: 0.3, fill: "transparent", stroke: "#e879f9" },
+    8: { cx: 500, cy: 500, r: 800, strokeWidth: 50, opacity: 0.2, fill: "transparent", stroke: "#fbbf24" },
   };
 
   return (
@@ -355,7 +364,8 @@ function BackgroundScene({ activeSlide }: { activeSlide: number }) {
         <group position={[0, -sceneSpacing * 4, 0]}><TBLGraphScene /></group>
         <group position={[0, -sceneSpacing * 5, 0]}><BillboardPhoneScene /></group>
         <group position={[0, -sceneSpacing * 6, 0]}><ImplementationGalleryScene /></group>
-        <group position={[0, -sceneSpacing * 7, 0]}><EarthScene /></group>
+        <group position={[0, -sceneSpacing * 7, 0]}></group> {/* Video Slide */}
+        <group position={[0, -sceneSpacing * 8, 0]}><EarthScene /></group>
       </group>
       <Environment preset="night" />
     </>
@@ -396,16 +406,48 @@ function ImageCarousel() {
             initial={{ opacity: 0 }} 
             animate={{ opacity: 1 }} 
             exit={{ opacity: 0 }} 
-            style={{ position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh', zIndex: 1000, backgroundColor: 'rgba(0,0,0,0.95)', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}
+            style={{ 
+              position: 'fixed', 
+              top: 0, 
+              left: 0, 
+              width: '100vw', 
+              height: '100vh', 
+              zIndex: 2000, 
+              backgroundColor: 'rgba(0,0,0,0.95)', 
+              display: 'flex', 
+              flexDirection: 'column', 
+              alignItems: 'center', 
+              justifyContent: 'center',
+              backdropFilter: 'blur(10px)'
+            }}
           >
             <button 
               onClick={(e) => { e.stopPropagation(); setIsExpanded(false); }} 
-              style={{ position: 'absolute', top: '2rem', left: '2rem', background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)', color: 'white', padding: '0.75rem 1.5rem', borderRadius: '100px', cursor: 'pointer', fontWeight: '600', backdropFilter: 'blur(10px)', zIndex: 1001 }}
+              style={{ 
+                position: 'absolute', 
+                top: '2rem', 
+                left: '2rem', 
+                background: 'rgba(255,255,255,0.1)', 
+                border: '1px solid rgba(255,255,255,0.2)', 
+                color: 'white', 
+                padding: '0.75rem 1.5rem', 
+                borderRadius: '100px', 
+                cursor: 'pointer', 
+                fontWeight: '600', 
+                zIndex: 2001 
+              }}
             >
               ← BACK
             </button>
             <div 
-              style={{ position: 'relative', width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }} 
+              style={{ 
+                width: '100%', 
+                height: '100%', 
+                display: 'flex', 
+                alignItems: 'center', 
+                justifyContent: 'center', 
+                cursor: 'pointer' 
+              }} 
               onClick={() => setCurrent(c => (c + 1) % carouselData.length)}
             >
               <AnimatePresence mode="wait">
@@ -415,20 +457,33 @@ function ImageCarousel() {
                   animate={{ opacity: 1, scale: 1 }} 
                   exit={{ opacity: 0, scale: 1.05 }} 
                   transition={{ duration: 0.4 }}
-                  style={{ width: '80vw', height: '80vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}
+                  style={{ 
+                    width: '90vw', 
+                    height: '90vh', 
+                    display: 'flex', 
+                    flexDirection: 'column', 
+                    alignItems: 'center', 
+                    justifyContent: 'center' 
+                  }}
                 >
                   <img 
                     src={carouselData[current].url} 
-                    style={{ maxWidth: '100%', maxHeight: '70vh', objectFit: 'contain', borderRadius: '1rem', boxShadow: '0 20px 50px rgba(0,0,0,0.5)' }} 
+                    style={{ 
+                      maxWidth: '100%', 
+                      maxHeight: '75vh', 
+                      objectFit: 'contain', 
+                      borderRadius: '1rem', 
+                      boxShadow: '0 30px 60px rgba(0,0,0,0.8)' 
+                    }} 
                     alt={carouselData[current].caption} 
                   />
-                  <h3 style={{ color: 'white', marginTop: '2rem', fontSize: '1.5rem' }}>{carouselData[current].caption}</h3>
-                  <div style={{ display: 'flex', gap: '0.8rem', marginTop: '1.5rem' }}>
+                  <h3 style={{ color: 'white', marginTop: '2rem', fontSize: '1.8rem', fontWeight: '700' }}>{carouselData[current].caption}</h3>
+                  <div style={{ display: 'flex', gap: '1rem', marginTop: '1.5rem' }}>
                     {carouselData.map((_, i) => (
-                      <div key={i} style={{ width: '10px', height: '10px', borderRadius: '50%', background: i === current ? 'var(--accent-sun)' : 'rgba(255,255,255,0.2)' }} />
+                      <div key={i} style={{ width: '12px', height: '12px', borderRadius: '50%', background: i === current ? 'var(--accent-sun)' : 'rgba(255,255,255,0.2)', transition: 'all 0.3s' }} />
                     ))}
                   </div>
-                  <p style={{ color: 'rgba(255,255,255,0.4)', marginTop: '1rem', fontSize: '0.9rem' }}>Click anywhere to next</p>
+                  <p style={{ color: 'rgba(255,255,255,0.4)', marginTop: '1rem', fontSize: '1rem' }}>Click anywhere to next</p>
                 </motion.div>
               </AnimatePresence>
             </div>
@@ -574,7 +629,27 @@ function App() {
           </div>
         </section>
 
-        {/* Slide 7: Conclusion */}
+        {/* Slide 7: Campaign Video */}
+        <section className="slide">
+          <div className="content-box" onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave}>
+            <span className="badge" style={{ color: '#ec4899' }}>AI Synthesis</span>
+            <h2>CAMPAIGN VIDEO.</h2>
+            <p className="lead-text" style={{ marginBottom: '1.5rem' }}>AI-generated voice synthesis to engage the local market.</p>
+            <div style={{ width: '100%', borderRadius: '1rem', overflow: 'hidden', boxShadow: '0 20px 40px rgba(0,0,0,0.6)' }}>
+              <video 
+                controls 
+                style={{ width: '100%', display: 'block', backgroundColor: '#000' }}
+                preload="metadata"
+                poster={`${BASE_PATH}/env.png`}
+              >
+                <source src={`${BASE_PATH}/campaign-video.mp4`} type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+            </div>
+          </div>
+        </section>
+
+        {/* Slide 8: Conclusion */}
         <section className="slide">
           <div className="content-box" style={{ textAlign: 'center' }} onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave}>
             <h2 style={{ fontSize: '4rem', color: 'var(--accent-earth)' }}>READY.</h2>
